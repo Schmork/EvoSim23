@@ -169,13 +169,13 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 4b764d9295bbff940933b4c71a03c4fe, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  maxToSpawn: 44
+  maxToSpawn: 150
   spawnRadius: 5
-  minSpawnInterval: 0.1
+  minSpawnInterval: 0.05
   pool: {fileID: 202389797}
   _prefab: {fileID: 4899608772384843270, guid: abacf299e7dfaec4697564378c06fc29, type: 3}
-  spawnSize: 3
-  spawnVariance: 2
+  spawnSize: 2
+  spawnVariance: 1
 --- !u!114 &202389796
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -189,6 +189,9 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   deathBelowSize: 0.1
+  shrinkSpeed: 11
+  spawnMargin: 0.85
+  absorbSpeed: 1.55
 --- !u!114 &202389797
 MonoBehaviour:
   m_ObjectHideFlags: 0

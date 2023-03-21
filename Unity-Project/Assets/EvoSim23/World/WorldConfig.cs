@@ -9,9 +9,21 @@ public class WorldConfig : MonoBehaviour
     [SerializeField] float deathBelowSize;
     public static float DeathBelowSize;
 
+    [SerializeField] float shrinkSpeed;
+    public static float ShrinkSpeed;
+
+    [SerializeField] float spawnMargin;
+    public static float SpawnMargin;
+
+    [SerializeField] float absorbSpeed;
+    public static float AbsorbSpeed;
+
     private void Awake()
     {
         DeathBelowSize = deathBelowSize;
+        ShrinkSpeed = shrinkSpeed;
+        SpawnMargin = spawnMargin;
+        AbsorbSpeed = absorbSpeed;
     }
 
     public static float FPS;

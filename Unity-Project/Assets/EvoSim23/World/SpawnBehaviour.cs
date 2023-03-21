@@ -32,7 +32,7 @@ public class SpawnBehaviour : MonoBehaviour
 
         var cell = spawner.Spawn((Vector2)pos);
         _timeSinceLastSpawn = 0f;
-        cell.Size = new CellSize(size);
+        cell.Size = size;
         cell.Pool = pool;
         cell.transform.rotation = Quaternion.Euler(0, 0, Random.Range(0f, 360f));
 
@@ -40,7 +40,7 @@ public class SpawnBehaviour : MonoBehaviour
         float saturation = 0.9f;
         float lightness = 0.8f;
 
-        cell.GetComponent<SpriteRenderer>().color = Color.HSVToRGB(hue, saturation, lightness);
+        cell.Renderer.color = Color.HSVToRGB(hue, saturation, lightness);
     }
 
     Vector2? GetSpawnPosition(float size, int attempts)
@@ -50,8 +50,8 @@ public class SpawnBehaviour : MonoBehaviour
         var actives = pool.Actives;
         Vector2 pos = Random.insideUnitCircle * spawnRadius;
 
-        return actives.Any(cell => Vector2.Distance(pos, cell.transform.position) * 0.8f
-                                   < CellSize.ToScale(size) + CellSize.ToScale(cell.Size))
+        return actives.Any(cell => Vector2.Distance(pos, cell.transform.position) * WorldConfig.SpawnMargin
+                                   < SizeController.ToScale(size) + SizeController.ToScale(cell.Size))
             ? GetSpawnPosition(size, attempts - 1)
             : pos;
     }
