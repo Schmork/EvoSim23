@@ -135,6 +135,7 @@ GameObject:
   - component: {fileID: 202389794}
   - component: {fileID: 202389796}
   - component: {fileID: 202389797}
+  - component: {fileID: 202389798}
   m_Layer: 0
   m_Name: World
   m_TagString: Untagged
@@ -170,12 +171,12 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   maxToSpawn: 150
-  spawnRadius: 6.5
+  spawnRadius: 7
   minSpawnInterval: 0.05
   pool: {fileID: 202389797}
   _prefab: {fileID: 4899608772384843270, guid: abacf299e7dfaec4697564378c06fc29, type: 3}
-  spawnSize: 3
-  spawnVariance: 2
+  spawnSize: 2
+  spawnVariance: 1
 --- !u!114 &202389796
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -202,6 +203,18 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: a64e3d473ff7e5b4f8a99b118cce50a8, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+--- !u!114 &202389798
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 202389792}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: e791e92f637556f4ab6ea204ac6392f2, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
 --- !u!1 &205451801

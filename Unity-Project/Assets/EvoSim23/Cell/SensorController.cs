@@ -1,3 +1,5 @@
+using Unity.Burst;
+using Unity.Mathematics;
 using UnityEngine;
 
 public class SensorController : MonoBehaviour
@@ -7,9 +9,8 @@ public class SensorController : MonoBehaviour
 
     const float sensorRadius = 10f;
     const float comparisonSafety = 0.9f; // reduce own size in comparisons (safety margin)
+    readonly public static int numSensorValues = 4;
 
-    public float updateInterval;
-    float lastUpdate = 0f;
     readonly Collider2D[] hitsBuffer = new Collider2D[50];
 
     struct TrackedCell
@@ -24,10 +25,9 @@ public class SensorController : MonoBehaviour
         }
     }
 
-    void Update()
+    [BurstCompile]
+    public float4 Scan()
     {
-        if (Time.time - lastUpdate < updateInterval) return;
-
         var hits = Physics2D.OverlapCircleNonAlloc(transform.position, sensorRadius, hitsBuffer, layer);
 
         TrackedCell prey = new();
@@ -53,13 +53,12 @@ public class SensorController : MonoBehaviour
             }
         }
 
-        cc.sensorHasPrey = prey.col != null;
-        cc.sensorHasThreat = threat.col != null;
-
-        cc.sensorPreyDir = cc.sensorHasPrey ? Direction(prey.col) : 0;
-        cc.sensorThreatDir = cc.sensorHasThreat ? Direction(threat.col) : 0;
-
-        lastUpdate = Time.time;
+        float4 output;
+        output.w = prey.col == null ? 0 : 1;
+        output.x = Direction(prey.col) ?? 0;
+        output.y = threat.col == null ? 0 : 1;
+        output.z = Direction(threat.col) ?? 0;
+        return output;
     }
 
     TrackedCell ProcessBigger(TrackedCell threat, Collider2D col, float distance)
@@ -83,8 +82,9 @@ public class SensorController : MonoBehaviour
         return prey;
     }
 
-    float Direction(Collider2D other)
+    float? Direction(Collider2D other)
     {
+        if (other == null) return null;
         return Vector2.SignedAngle(transform.up, other.transform.position - transform.position) / 180f;
     }
 }

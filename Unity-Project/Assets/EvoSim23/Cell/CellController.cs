@@ -20,8 +20,13 @@ public class CellController : MonoBehaviour
         set => sc.Pool = value;
     }
 
-    public float sensorPreyDir;
-    public float sensorThreatDir;
-    public bool sensorHasPrey;
-    public bool sensorHasThreat;
+    [SerializeField] SensorController sensor;
+    public SensorController Sensors => sensor;
+
+    [SerializeField] NeuralNetworkController neuralNetworkController;
+    public NeuralNetwork NeuralNetwork
+    {
+        get => neuralNetworkController.neuralNetwork;
+        set => neuralNetworkController.neuralNetwork = value;
+    }
 }

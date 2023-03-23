@@ -32,11 +32,5 @@ public class SizeController : MonoBehaviour
         shrink += sizeTime / 1500f / slow * Mathf.Abs(cc.Rb.angularVelocity);
         shrink += sizeTime / 500f / slow;
         Size -= shrink;
-
-        var powTime = Time.deltaTime / sizePow;
-        var thrust = 500f * powTime * Random.Range(-0, 1f);
-        var torque = 2500f * powTime * Random.Range(-1, 1f);
-        cc.Rb.AddForce(transform.up * thrust);
-        cc.Rb.AddTorque(torque);
     }
 }

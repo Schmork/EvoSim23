@@ -39,8 +39,9 @@ public class SpawnBehaviour : MonoBehaviour
         float hue = Random.Range(0f, 360f) / 360f;
         float saturation = 0.9f;
         float lightness = 0.8f;
-
         cell.Renderer.color = Color.HSVToRGB(hue, saturation, lightness);
+
+        cell.NeuralNetwork = NeuralNetwork.NewRandom();
     }
 
     Vector2? GetSpawnPosition(float size, int attempts)
