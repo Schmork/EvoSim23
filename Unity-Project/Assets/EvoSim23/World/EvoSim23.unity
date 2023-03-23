@@ -170,12 +170,12 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   maxToSpawn: 150
-  spawnRadius: 5
+  spawnRadius: 6.5
   minSpawnInterval: 0.05
   pool: {fileID: 202389797}
   _prefab: {fileID: 4899608772384843270, guid: abacf299e7dfaec4697564378c06fc29, type: 3}
-  spawnSize: 2
-  spawnVariance: 1
+  spawnSize: 3
+  spawnVariance: 2
 --- !u!114 &202389796
 MonoBehaviour:
   m_ObjectHideFlags: 0

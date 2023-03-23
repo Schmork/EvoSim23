@@ -12,10 +12,11 @@ GameObject:
   - component: {fileID: 7412214643358854914}
   - component: {fileID: 8004139887803216697}
   - component: {fileID: 1180766287220257683}
+  - component: {fileID: 8309607213124903329}
   - component: {fileID: 9108034366400706714}
   - component: {fileID: 1200457468809405496}
   - component: {fileID: 7716677756621441432}
-  m_Layer: 0
+  m_Layer: 3
   m_Name: Cell
   m_TagString: Cell
   m_Icon: {fileID: 0}
@@ -52,6 +53,10 @@ MonoBehaviour:
   sc: {fileID: 1180766287220257683}
   rendrr: {fileID: 7716677756621441432}
   rb2d: {fileID: 9108034366400706714}
+  sensorPreyDir: 0
+  sensorThreatDir: 0
+  sensorHasPrey: 0
+  sensorHasThreat: 0
 --- !u!114 &8004139887803216697
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -79,6 +84,23 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   cc: {fileID: 7412214643358854914}
   size: 0
+--- !u!114 &8309607213124903329
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4899608772384843270}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ae008fbb448926641aa2fec006d4b203, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  cc: {fileID: 7412214643358854914}
+  layer:
+    serializedVersion: 2
+    m_Bits: 8
+  updateInterval: 0
 --- !u!50 &9108034366400706714
 Rigidbody2D:
   serializedVersion: 4

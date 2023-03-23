@@ -8,7 +8,7 @@ public class CellController : MonoBehaviour
         get => sc.Size;
         set => sc.Size = value;
     }
-    
+
     [SerializeField] SpriteRenderer rendrr;
     public SpriteRenderer Renderer => rendrr;
 
@@ -19,4 +19,9 @@ public class CellController : MonoBehaviour
     {
         set => sc.Pool = value;
     }
+
+    public float sensorPreyDir;
+    public float sensorThreatDir;
+    public bool sensorHasPrey;
+    public bool sensorHasThreat;
 }
