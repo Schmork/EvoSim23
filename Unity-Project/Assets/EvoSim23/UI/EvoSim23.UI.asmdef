@@ -1,3 +1,16 @@
 {
-	"name": "EvoSim23.UI"
+    "name": "EvoSim23.UI",
+    "rootNamespace": "",
+    "references": [
+        ""
+    ],
+    "includePlatforms": [],
+    "excludePlatforms": [],
+    "allowUnsafeCode": false,
+    "overrideReferences": false,
+    "precompiledReferences": [],
+    "autoReferenced": true,
+    "defineConstraints": [],
+    "versionDefines": [],
+    "noEngineReferences": false
 }
