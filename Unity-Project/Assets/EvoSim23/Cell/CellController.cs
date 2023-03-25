@@ -2,6 +2,7 @@ using UnityEngine;
 
 public class CellController : MonoBehaviour
 {
+    [SerializeField] WorldData worldData;
     [SerializeField] SizeController sc;
     public float Size
     {
@@ -15,9 +16,15 @@ public class CellController : MonoBehaviour
     [SerializeField] Rigidbody2D rb2d;
     public Rigidbody2D Rb => rb2d;
 
+    CellPool pool;
     public CellPool Pool
     {
-        set => sc.Pool = value;
+        get => pool;
+        set
+        {
+            pool = value;
+            sc.Pool = value;
+        }
     }
 
     [SerializeField] SensorController sensor;
@@ -28,5 +35,10 @@ public class CellController : MonoBehaviour
     {
         get => neuralNetworkController.neuralNetwork;
         set => neuralNetworkController.neuralNetwork = value;
+    }
+
+    void Update()
+    {
+        if (transform.position.magnitude > worldData.Fence * sc.Size) pool.Deactivate(this);
     }
 }

@@ -12,7 +12,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: e2de58a3d0f289146b9b2694fe1c8981, type: 3}
   m_Name: WorldData
   m_EditorClassIdentifier: 
-  _speed: 6
-  _area: {x: 104.99982, y: 49.823975, z: 0.2696354}
+  speed: 61.42853
+  fence: 50
+  area: {x: 0, y: 0, z: 0}
   cameraZoom: 50
-  cameraPos: {x: 0, y: 0, z: 0}
+  cameraPos: {x: 0, y: 0}

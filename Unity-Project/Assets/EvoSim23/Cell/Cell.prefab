@@ -51,6 +51,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 5fd211d76b53c4f4aa6e2039cb9435bb, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  worldData: {fileID: 11400000, guid: 2d37c480c4bf015458b1572c9cd843e8, type: 2}
   sc: {fileID: 1180766287220257683}
   rendrr: {fileID: 7716677756621441432}
   rb2d: {fileID: 9108034366400706714}
@@ -99,11 +100,6 @@ MonoBehaviour:
   layer:
     serializedVersion: 2
     m_Bits: 8
-  updateInterval: 0
-  sensorPreyDir: 0
-  sensorThreatDir: 0
-  sensorHasPrey: 0
-  sensorHasThreat: 0
 --- !u!114 &1220265586891544213
 MonoBehaviour:
   m_ObjectHideFlags: 0

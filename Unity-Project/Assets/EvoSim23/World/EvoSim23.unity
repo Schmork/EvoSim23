@@ -134,6 +134,10 @@ PrefabInstance:
       propertyPath: panel
       value: 
       objectReference: {fileID: 699410505}
+    - target: {fileID: 275688586353394524, guid: a59311f0f54df8443857095755adbc7f, type: 3}
+      propertyPath: worldData
+      value: 
+      objectReference: {fileID: 11400000, guid: 2d37c480c4bf015458b1572c9cd843e8, type: 2}
     - target: {fileID: 1251369510395354239, guid: a59311f0f54df8443857095755adbc7f, type: 3}
       propertyPath: m_Text
       value: Valhalla
@@ -388,6 +392,10 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 1726657825389655840, guid: 6682eef92ff82b2478d274d3bfef07c7, type: 3}
+      propertyPath: parameter
+      value: 4
+      objectReference: {fileID: 0}
     - target: {fileID: 2042722736941730565, guid: 6682eef92ff82b2478d274d3bfef07c7, type: 3}
       propertyPath: m_Name
       value: Panel World (2)
@@ -446,15 +454,15 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 4635995842344383182, guid: 6682eef92ff82b2478d274d3bfef07c7, type: 3}
       propertyPath: m_Value
-      value: 2
+      value: 50
       objectReference: {fileID: 0}
     - target: {fileID: 4635995842344383182, guid: 6682eef92ff82b2478d274d3bfef07c7, type: 3}
       propertyPath: m_MaxValue
-      value: 10
+      value: 100
       objectReference: {fileID: 0}
     - target: {fileID: 4635995842344383182, guid: 6682eef92ff82b2478d274d3bfef07c7, type: 3}
       propertyPath: m_MinValue
-      value: 0.5
+      value: 10
       objectReference: {fileID: 0}
     - target: {fileID: 4763899056902610319, guid: 6682eef92ff82b2478d274d3bfef07c7, type: 3}
       propertyPath: m_Enabled
@@ -2226,6 +2234,10 @@ PrefabInstance:
       propertyPath: mapping
       value: 2
       objectReference: {fileID: 0}
+    - target: {fileID: 1726657825389655840, guid: 6682eef92ff82b2478d274d3bfef07c7, type: 3}
+      propertyPath: parameter
+      value: 2
+      objectReference: {fileID: 0}
     - target: {fileID: 2042722736941730565, guid: 6682eef92ff82b2478d274d3bfef07c7, type: 3}
       propertyPath: m_Name
       value: Panel World
@@ -2562,6 +2574,14 @@ PrefabInstance:
       propertyPath: panel
       value: 
       objectReference: {fileID: 1658356435}
+    - target: {fileID: 275688586353394524, guid: a59311f0f54df8443857095755adbc7f, type: 3}
+      propertyPath: parameter
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 275688586353394524, guid: a59311f0f54df8443857095755adbc7f, type: 3}
+      propertyPath: worldData
+      value: 
+      objectReference: {fileID: 11400000, guid: 2d37c480c4bf015458b1572c9cd843e8, type: 2}
     - target: {fileID: 1251369510395354239, guid: a59311f0f54df8443857095755adbc7f, type: 3}
       propertyPath: m_Text
       value: World
@@ -2823,6 +2843,10 @@ PrefabInstance:
     - target: {fileID: 1540256485710146084, guid: 6682eef92ff82b2478d274d3bfef07c7, type: 3}
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 1726657825389655840, guid: 6682eef92ff82b2478d274d3bfef07c7, type: 3}
+      propertyPath: parameter
+      value: 3
       objectReference: {fileID: 0}
     - target: {fileID: 2042722736941730565, guid: 6682eef92ff82b2478d274d3bfef07c7, type: 3}
       propertyPath: m_Name
@@ -6127,7 +6151,7 @@ MonoBehaviour:
   valueArea: {fileID: 413757369}
   text: {fileID: 3956958247603178973}
   worldData: {fileID: 11400000, guid: 2d37c480c4bf015458b1572c9cd843e8, type: 2}
-  parameter: 3
+  parameter: 5
   _value: {x: 0, y: 0, z: 0}
 --- !u!224 &8950311811758927641
 RectTransform:

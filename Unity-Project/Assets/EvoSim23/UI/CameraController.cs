@@ -1,4 +1,5 @@
 using UnityEngine;
+using UnityEngine.EventSystems;
 
 public class CameraController : MonoBehaviour
 {
@@ -9,26 +10,26 @@ public class CameraController : MonoBehaviour
     [SerializeField] float minZoom = 5;
     [SerializeField] float maxZoom = 200;
 
-    private Vector3 panStart;
-    private Vector3 lastPanPosition;
-    private float zoomStart;
+    Vector3 panStart;
+    Vector3 lastPanPosition;
+    float zoomStart;
 
-    private void Start()
+    void Start()
     {
         zoomStart = worldData.CameraZoom;
         transform.position = worldData.CameraPos;
     }
 
-    private void Update()
+    void Update()
     {
         float adjustedPanSpeed = panSpeed * Mathf.Pow(zoomStart, 0.3f);
 
-        if (Input.GetMouseButtonDown(0))
+        if (Input.GetMouseButtonDown(0) && EventSystem.current.currentSelectedGameObject == null)
         {
             panStart = GetWorldPositionFromScreen(Input.mousePosition);
             lastPanPosition = panStart;
         }
-        if (Input.GetMouseButton(0))
+        if (Input.GetMouseButton(0) && EventSystem.current.currentSelectedGameObject == null)
         {
             Vector3 currentPanPosition = GetWorldPositionFromScreen(Input.mousePosition);
             Vector3 panOffset = lastPanPosition - currentPanPosition;
@@ -51,8 +52,5 @@ public class CameraController : MonoBehaviour
         worldData.CameraZoom = zoomStart;
     }
 
-    private Vector3 GetWorldPositionFromScreen(Vector3 screenPosition)
-    {
-        return Camera.main.ScreenToWorldPoint(screenPosition);
-    }
+    Vector3 GetWorldPositionFromScreen(Vector3 screenPosition) => Camera.main.ScreenToWorldPoint(screenPosition);
 }

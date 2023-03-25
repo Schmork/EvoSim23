@@ -3,7 +3,7 @@ using UnityEngine;
 using UnityEngine.UI;
 using UnityEngine.EventSystems;
 
-public class RectangleSlider : MonoBehaviour, IPointerDownHandler, IDragHandler
+public class RectangleSlider : MonoBehaviour, IPointerDownHandler, IDragHandler, IEventSystemHandler
 {
     [SerializeField] Slider scaleSlider;
     [SerializeField] RectTransform knob;
@@ -41,7 +41,12 @@ public class RectangleSlider : MonoBehaviour, IPointerDownHandler, IDragHandler
         scaleSlider.onValueChanged.AddListener(value => Value = new Vector3(_value.x, _value.y, value));
     }
 
-    public void OnPointerDown(PointerEventData eventData) => UpdateArea(eventData);
+    public void OnPointerDown(PointerEventData eventData)
+    {
+        EventSystem.current.SetSelectedGameObject(gameObject);
+        UpdateArea(eventData);
+    }
+
     public void OnDrag(PointerEventData eventData) => UpdateArea(eventData);
 
     void UpdateArea(PointerEventData eventData)
