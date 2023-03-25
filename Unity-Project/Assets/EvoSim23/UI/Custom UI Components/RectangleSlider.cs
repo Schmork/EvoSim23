@@ -1,73 +1,63 @@
+using TMPro;
 using UnityEngine;
-using UnityEngine.Events;
+using UnityEngine.UI;
 using UnityEngine.EventSystems;
 
 public class RectangleSlider : MonoBehaviour, IPointerDownHandler, IDragHandler
 {
-    [SerializeField] RectTransform Knob;
-    [SerializeField] RectTransform SliderArea;
-    [SerializeField] RectTransform ValueArea;
-    event UnityAction<Vector2> OnValueChanged;
-    public void AddOnValueChangedListener(UnityAction<Vector2> listener) => OnValueChanged += listener;
+    [SerializeField] Slider scaleSlider;
+    [SerializeField] RectTransform knob;
+    [SerializeField] RectTransform slideArea;
+    [SerializeField] RectTransform valueArea;
+    [SerializeField] TMP_Text text;
 
-    void Start()
+    [SerializeField] WorldData worldData;
+    [SerializeField] WorldData.Parameter parameter;
+
+    [SerializeField]
+    Vector3 _value;
+    public Vector3 Value
     {
-        EventTrigger trigger = gameObject.AddComponent<EventTrigger>();
-        EventTrigger.Entry pointerDownEntry = new()
+        get => _value;
+        set
         {
-            eventID = EventTriggerType.PointerDown
-        };
-        pointerDownEntry.callback.AddListener((data) => { OnPointerDown((PointerEventData)data); });
-        trigger.triggers.Add(pointerDownEntry);
+            _value = value;
 
-        EventTrigger.Entry dragEntry = new()
-        {
-            eventID = EventTriggerType.Drag
-        };
-        dragEntry.callback.AddListener((data) => { OnDrag((PointerEventData)data); });
-        trigger.triggers.Add(dragEntry);
+            text.text = (value.x * value.z).ToString("F1") + " • " +
+                        (value.y * value.z).ToString("F1");
 
-        AdjustValueArea();
-    }
+            Vector2 restoredPosition = new(value.x, value.y);
+            knob.anchoredPosition = restoredPosition;
+            valueArea.sizeDelta = restoredPosition;
+            scaleSlider.value = value.z;
 
-    public void OnPointerDown(PointerEventData eventData) => ClampPosition(eventData);
-    public void OnDrag(PointerEventData eventData) => ClampPosition(eventData);
-
-    void ClampPosition(PointerEventData eventData)
-    {
-        if (RectTransformUtility.ScreenPointToLocalPointInRectangle(SliderArea, eventData.position, Camera.main, out Vector2 pos))
-        {
-            Knob.localPosition = new Vector2(
-            Mathf.Clamp(pos.x, -SliderArea.rect.width / 2f, SliderArea.rect.width / 2f),
-            Mathf.Clamp(pos.y, -SliderArea.rect.height / 2f, SliderArea.rect.height / 2f));
-
-            AdjustValueArea();
+            worldData.GetType().GetProperty(parameter.ToString()).SetValue(worldData, value);
         }
     }
 
-    void AdjustValueArea()
+    void Awake()
     {
-        var value = GetValue();
-        var rect = value * SliderArea.rect.size;
-        ValueArea.SetSizeWithCurrentAnchors(RectTransform.Axis.Horizontal, rect.x);
-        ValueArea.SetSizeWithCurrentAnchors(RectTransform.Axis.Vertical, rect.y);
-        OnValueChanged?.Invoke(value);
+        Value = (Vector3)worldData.GetType().GetProperty(parameter.ToString()).GetValue(worldData);
+        scaleSlider.onValueChanged.AddListener(value => Value = new Vector3(_value.x, _value.y, value));
     }
 
-    public Vector2 GetValue()
-    {
-        var pos = (Vector2)Knob.localPosition + SliderArea.rect.size / 2;
-        return pos / SliderArea.rect.size;
-    }
+    public void OnPointerDown(PointerEventData eventData) => UpdateArea(eventData);
+    public void OnDrag(PointerEventData eventData) => UpdateArea(eventData);
 
-    public void SetValue(float width, float height)
+    void UpdateArea(PointerEventData eventData)
     {
-        var knobPos = Knob.localPosition;
-        knobPos.x = SliderArea.rect.width * (width - 0.5f);
-        knobPos.y = SliderArea.rect.height * (height - 0.5f);
-        Knob.localPosition = knobPos;
-        AdjustValueArea();
+        if (RectTransformUtility.ScreenPointToLocalPointInRectangle(slideArea,
+                                                                    eventData.position,
+                                                                    eventData.pressEventCamera,
+                                                                    out Vector2 localPoint))
+        {
+            Vector2 clampedLocalPoint = new(
+                Mathf.Clamp(localPoint.x, 0, slideArea.rect.width),
+                Mathf.Clamp(localPoint.y, 0, slideArea.rect.height)
+            );
+            knob.anchoredPosition = clampedLocalPoint;
+            valueArea.sizeDelta = clampedLocalPoint;
+            Value = new Vector3(clampedLocalPoint.x, clampedLocalPoint.y, _value.z);
+        }
     }
-
-    public enum Axis { Horizontal, Vertical };
 }

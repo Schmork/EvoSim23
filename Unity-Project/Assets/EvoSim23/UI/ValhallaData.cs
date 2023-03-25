@@ -1,6 +1,6 @@
 using UnityEngine;
 
-[CreateAssetMenu(fileName = "ValhallaData", menuName = "ScriptableObjects/ValhallaData", order = 1)]
+[CreateAssetMenu(fileName = "ValhallaData", menuName = "ScriptableObjects/ValhallaData")]
 public class ValhallaData : ScriptableObject
 {
     public enum Metric
@@ -9,6 +9,7 @@ public class ValhallaData : ScriptableObject
         // Add other parameters here
     }
 
+    //[field: SerializeField]
     // public int Speed;
     // Add other global simulation parameters here
 }

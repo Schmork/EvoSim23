@@ -10,18 +10,18 @@ public class WorldSlider : SliderValuePair
     }
 
     [SerializeField] ValueMapping mapping;
-    [SerializeField] SimulationData simulationData;
-    [SerializeField] SimulationData.Parameter parameter;
+    [SerializeField] WorldData worldData;
+    [SerializeField] WorldData.Parameter parameter;
 
     void Start()
     {
-        slider.value = (float)simulationData.GetType()
-                                            .GetProperty(parameter.ToString())
-                                            .GetValue(simulationData);
+        slider.value = (float)worldData.GetType()
+                                       .GetProperty(parameter.ToString())
+                                       .GetValue(worldData);
 
-        slider.onValueChanged.AddListener(value => simulationData.GetType()
-                                                                 .GetProperty(parameter.ToString())
-                                                                 .SetValue(simulationData, value));
+        slider.onValueChanged.AddListener(value => worldData.GetType()
+                                                            .GetProperty(parameter.ToString())
+                                                            .SetValue(worldData, value));
     }
 
     protected override float Map(float value)

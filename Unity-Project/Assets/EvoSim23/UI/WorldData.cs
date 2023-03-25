@@ -1,14 +1,18 @@
 using UnityEngine;
 
-[CreateAssetMenu(fileName = "SimulationData", menuName = "ScriptableObjects/SimulationData", order = 1)]
-public class SimulationData : ScriptableObject
+[CreateAssetMenu(fileName = "WorldData", menuName = "ScriptableObjects/WorldData")]
+public class WorldData : ScriptableObject
 {
     public enum Parameter
     {
         Speed,
+        Gauss,
+        Fence,
+        Area,
         // Add other parameters here
     }
-
+    
+    [field: SerializeField]
     private float _speed;
     public float Speed
     {
@@ -18,6 +22,14 @@ public class SimulationData : ScriptableObject
             _speed = value;
             Time.timeScale = value;
         }
+    }
+
+    [field: SerializeField]
+    private Vector3 _area;
+    public Vector3 Area
+    {
+        get => _area;
+        set => _area = value;
     }
 
     void OnEnable()
