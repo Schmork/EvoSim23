@@ -2,6 +2,8 @@ using UnityEngine;
 
 public class CameraController : MonoBehaviour
 {
+    [SerializeField] WorldData worldData;
+
     [SerializeField] float panSpeed = 0.1f;
     [SerializeField] float zoomSpeed = 0.7f;
     [SerializeField] float minZoom = 5;
@@ -13,7 +15,8 @@ public class CameraController : MonoBehaviour
 
     private void Start()
     {
-        zoomStart = Camera.main.orthographicSize;
+        zoomStart = worldData.CameraZoom;
+        transform.position = worldData.CameraPos;
     }
 
     private void Update()
@@ -43,6 +46,9 @@ public class CameraController : MonoBehaviour
             zoomStart = (minZoom + maxZoom) / 2;
             Camera.main.orthographicSize = zoomStart;
         }
+
+        worldData.CameraPos = transform.position;
+        worldData.CameraZoom = zoomStart;
     }
 
     private Vector3 GetWorldPositionFromScreen(Vector3 screenPosition)

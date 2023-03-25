@@ -548,6 +548,7 @@ GameObject:
   - component: {fileID: 202389796}
   - component: {fileID: 202389797}
   - component: {fileID: 202389798}
+  - component: {fileID: 202389799}
   m_Layer: 0
   m_Name: World
   m_TagString: Untagged
@@ -563,7 +564,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 202389792}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalPosition: {x: 0, y: 0, z: 10}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -582,8 +583,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 4b764d9295bbff940933b4c71a03c4fe, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  worldData: {fileID: 11400000, guid: 2d37c480c4bf015458b1572c9cd843e8, type: 2}
   maxToSpawn: 100
-  spawnRadius: 7
   minSpawnInterval: 0.15
   pool: {fileID: 202389797}
   _prefab: {fileID: 4899608772384843270, guid: abacf299e7dfaec4697564378c06fc29, type: 3}
@@ -629,6 +630,19 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: e791e92f637556f4ab6ea204ac6392f2, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+--- !u!114 &202389799
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 202389792}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 89191a4b68b08f24b88a75f27723edc4, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  worldData: {fileID: 11400000, guid: 2d37c480c4bf015458b1572c9cd843e8, type: 2}
 --- !u!1 &205451801
 GameObject:
   m_ObjectHideFlags: 0
@@ -759,7 +773,7 @@ RectTransform:
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 0, y: 0}
   m_AnchoredPosition: {x: 0, y: 0}
-  m_SizeDelta: {x: 60, y: 45}
+  m_SizeDelta: {x: 100, y: 50}
   m_Pivot: {x: 0, y: 0}
 --- !u!114 &413757370
 MonoBehaviour:
@@ -1329,7 +1343,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 519420028}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: -10}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -1348,6 +1362,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f9145de16f6ece940ab27cb361c7dad6, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  worldData: {fileID: 11400000, guid: 2d37c480c4bf015458b1572c9cd843e8, type: 2}
   panSpeed: 0.1
   zoomSpeed: 0.7
   minZoom: 5
@@ -4502,7 +4517,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 0, y: 0}
-  m_AnchoredPosition: {x: 75, y: 25}
+  m_AnchoredPosition: {x: 100, y: 50}
   m_SizeDelta: {x: 10, y: 10}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &1980168574
@@ -5618,9 +5633,9 @@ MonoBehaviour:
   m_HandleRect: {fileID: 2452094395762334837}
   m_Direction: 0
   m_MinValue: 0.1
-  m_MaxValue: 10
+  m_MaxValue: 2
   m_WholeNumbers: 0
-  m_Value: 1
+  m_Value: 0.25
   m_OnValueChanged:
     m_PersistentCalls:
       m_Calls: []

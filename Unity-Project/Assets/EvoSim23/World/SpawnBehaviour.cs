@@ -3,8 +3,8 @@ using UnityEngine;
 
 public class SpawnBehaviour : MonoBehaviour
 {
+    [SerializeField] WorldData worldData;
     [SerializeField] int maxToSpawn;
-    [SerializeField] float spawnRadius;
     [SerializeField] float minSpawnInterval = 0.5f;
     [SerializeField] CellPool pool;
     [SerializeField] GameObject _prefab;
@@ -30,7 +30,7 @@ public class SpawnBehaviour : MonoBehaviour
         var pos = GetSpawnPosition(size, 10);
         if (pos == null) return;
 
-        var cell = spawner.Spawn((Vector2)pos);
+        var cell = spawner.Spawn((Vector3)pos);
         _timeSinceLastSpawn = 0f;
         cell.Size = size;
         cell.Pool = pool;
@@ -44,13 +44,17 @@ public class SpawnBehaviour : MonoBehaviour
         cell.NeuralNetwork = NeuralNetwork.NewRandom();
     }
 
-    Vector2? GetSpawnPosition(float size, int attempts)
+    Vector3? GetSpawnPosition(float size, int attempts)
     {
         if (attempts <= 0) return null;
 
+        var width = worldData.Area.x * worldData.Area.z * 0.5f;
+        var height = worldData.Area.y * worldData.Area.z * 0.5f;
+        var pos = new Vector3(Random.Range(-width, width),
+                              Random.Range(-height, height),
+                              transform.position.z);
+        
         var actives = pool.Actives;
-        Vector2 pos = Random.insideUnitCircle * spawnRadius;
-
         return actives.Any(cell => Vector2.Distance(pos, cell.transform.position) * WorldConfig.SpawnMargin
                                    < SizeController.ToScale(size) + SizeController.ToScale(cell.Size))
             ? GetSpawnPosition(size, attempts - 1)

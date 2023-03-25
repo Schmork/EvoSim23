@@ -2,7 +2,8 @@
     "name": "EvoSim23.UI",
     "rootNamespace": "",
     "references": [
-        "Unity.TextMeshPro"
+        "Unity.TextMeshPro",
+        "EvoSim23"
     ],
     "includePlatforms": [],
     "excludePlatforms": [],

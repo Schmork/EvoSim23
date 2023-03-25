@@ -11,7 +11,7 @@ public class Spawner
         this.container = container;
     }
 
-    public CellController Spawn(Vector2 position)
+    public CellController Spawn(Vector3 position)
     {
         var cell = pool.Get();
         cell.transform.SetPositionAndRotation(position, Quaternion.identity);
