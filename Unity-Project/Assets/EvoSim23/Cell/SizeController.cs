@@ -28,7 +28,7 @@ public class SizeController : MonoBehaviour
 
     void Update()
     {
-        var sizeTime = WorldConfig.ShrinkSpeed * Mathf.Pow(size + 1, 2f) * Time.deltaTime;
+        var sizeTime = WorldConfig.ShrinkSpeed * Mathf.Pow(size + 1, 3f) * Time.deltaTime;
         var slow = (1 + cc.Rb.velocity.magnitude) * 5000f;
         Size -= sizeTime / slow * Mathf.Abs(cc.Rb.angularVelocity);
     }

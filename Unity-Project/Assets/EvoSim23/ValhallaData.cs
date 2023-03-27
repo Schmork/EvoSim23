@@ -42,4 +42,13 @@ public class ValhallaData : ScriptableObject
 
         IO.SaveHero(metric, Heroes[i]);
     }
+
+    public NeuralNetwork GetHero()
+    {
+        var i = (int)(UnityEngine.Random.value * Heroes.Length);
+        if (Heroes[i].Network == null)
+            return NeuralNetwork.NewRandom();
+        else
+            return Heroes[i].Network.Clone() as NeuralNetwork;
+    }
 }

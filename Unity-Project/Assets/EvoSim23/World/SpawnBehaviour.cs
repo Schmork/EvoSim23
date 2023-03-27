@@ -4,6 +4,8 @@ using UnityEngine;
 public class SpawnBehaviour : MonoBehaviour
 {
     [SerializeField] WorldData worldData;
+    [SerializeField] ValhallaData valhallaData;
+
     [SerializeField] int maxToSpawn;
     [SerializeField] float minSpawnInterval = 0.5f;
     [SerializeField] CellPool pool;
@@ -31,7 +33,8 @@ public class SpawnBehaviour : MonoBehaviour
         if (pos == null) return;
 
         var cell = spawner.Spawn((Vector3)pos);
-        cell.NeuralNetwork = NeuralNetwork.NewRandom();
+        cell.NeuralNetwork = valhallaData.GetHero();
+        cell.NeuralNetwork.Mutate(Utility.Gauss(worldData.Gauss));
         cell.Size = size;
         cell.Pool = pool;
         cell.transform.rotation = Quaternion.Euler(0, 0, Random.Range(0f, 360f));

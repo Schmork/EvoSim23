@@ -592,12 +592,13 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   worldData: {fileID: 11400000, guid: 2d37c480c4bf015458b1572c9cd843e8, type: 2}
+  valhallaData: {fileID: 11400000, guid: b9475a5fd9bd088479909baee21ae389, type: 2}
   maxToSpawn: 200
   minSpawnInterval: 0.15
   pool: {fileID: 202389797}
   _prefab: {fileID: 4899608772384843270, guid: abacf299e7dfaec4697564378c06fc29, type: 3}
   spawnSize: 2
-  spawnVariance: 1
+  spawnVariance: 0.3
 --- !u!114 &202389796
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -611,7 +612,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   deathBelowSize: 0.2
-  shrinkSpeed: 2
+  shrinkSpeed: 1.3
   spawnMargin: 0.85
   absorbSpeed: 1.55
 --- !u!114 &202389797
