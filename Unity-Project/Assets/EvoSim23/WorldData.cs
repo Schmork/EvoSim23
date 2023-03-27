@@ -31,7 +31,16 @@ public class WorldData : ScriptableObject
     }
 
     [SerializeField] float gauss;
-    public float Gauss { get => gauss; set => gauss = value; }
+    public float Gauss
+    {
+        get => gauss;
+        set
+        {
+            gauss = value;
+            GaussStd = value;
+        }
+    }
+    public static float GaussStd;
 
     [SerializeField] float fence;
     public float Fence { get => fence; set => fence = value; }
@@ -48,5 +57,6 @@ public class WorldData : ScriptableObject
     public void OnStart()
     {
         Time.timeScale = Speed;
+        GaussStd = gauss;
     }
 }

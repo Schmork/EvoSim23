@@ -3,6 +3,12 @@ using UnityEngine;
 public class CellController : MonoBehaviour
 {
     [SerializeField] WorldData worldData;
+    [SerializeField] ValhallaData valhalla;
+    public ValhallaData Valhalla => valhalla;
+
+    [SerializeField] StatsController stats;
+    public StatsController Stats => stats;
+
     [SerializeField] SizeController sc;
     public float Size
     {

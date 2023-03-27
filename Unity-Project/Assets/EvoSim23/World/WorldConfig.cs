@@ -2,10 +2,6 @@ using UnityEngine;
 
 public class WorldConfig : MonoBehaviour
 {
-    public static float GaussStd;
-    public static float FenceRadius;
-    public static Vector3 SpawnRect;
-
     [SerializeField] float deathBelowSize;
     public static float DeathBelowSize;
 

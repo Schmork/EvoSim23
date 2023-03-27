@@ -15,8 +15,11 @@ public class SizeController : MonoBehaviour
             {
                 Pool.Deactivate(cc);
             }
-            size = value;
-            transform.localScale = Vector3.one * ToScale();
+            else
+            {
+                size = value;
+                transform.localScale = Vector3.one * ToScale();
+            }
         }
     }
 
@@ -25,12 +28,8 @@ public class SizeController : MonoBehaviour
 
     void Update()
     {
-        var sizePow = Mathf.Pow(size + 1, 2f);
-        var sizeTime = WorldConfig.ShrinkSpeed * sizePow * Time.deltaTime;
-        var slow = (1 + cc.Rb.velocity.magnitude);
-        var shrink = sizeTime / 700f;
-        shrink += sizeTime / 1500f / slow * Mathf.Abs(cc.Rb.angularVelocity);
-        shrink += sizeTime / 500f / slow;
-        Size -= shrink;
+        var sizeTime = WorldConfig.ShrinkSpeed * Mathf.Pow(size + 1, 2f) * Time.deltaTime;
+        var slow = (1 + cc.Rb.velocity.magnitude) * 5000f;
+        Size -= sizeTime / slow * Mathf.Abs(cc.Rb.angularVelocity);
     }
 }

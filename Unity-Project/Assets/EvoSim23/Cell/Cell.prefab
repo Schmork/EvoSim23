@@ -10,6 +10,7 @@ GameObject:
   m_Component:
   - component: {fileID: 4899608772384843274}
   - component: {fileID: 7412214643358854914}
+  - component: {fileID: -1273582563082079025}
   - component: {fileID: 8004139887803216697}
   - component: {fileID: 1180766287220257683}
   - component: {fileID: 8309607213124903329}
@@ -52,11 +53,29 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   worldData: {fileID: 11400000, guid: 2d37c480c4bf015458b1572c9cd843e8, type: 2}
+  valhalla: {fileID: 11400000, guid: b9475a5fd9bd088479909baee21ae389, type: 2}
+  stats: {fileID: -1273582563082079025}
   sc: {fileID: 1180766287220257683}
   rendrr: {fileID: 7716677756621441432}
   rb2d: {fileID: 9108034366400706714}
   sensor: {fileID: 8309607213124903329}
   neuralNetworkController: {fileID: 1220265586891544213}
+--- !u!114 &-1273582563082079025
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4899608772384843270}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: c27956e8ec0c2054f9f769224e4b8f5f, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  cc: {fileID: 7412214643358854914}
+  distanceTravelled: 0
+  timeSurvived: 0
+  massEaten: 0
 --- !u!114 &8004139887803216697
 MonoBehaviour:
   m_ObjectHideFlags: 0

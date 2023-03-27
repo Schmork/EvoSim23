@@ -47,7 +47,7 @@ public class NeuralNetwork : ICloneable
         return nn;
     }
 
-    void AddLayer(int numNeurons, ActivationFunction? function = null)
+    void AddLayer(int numNeurons)
     {
         Layers.Add(new Layer(numNeurons, Layers[^1].Biases.Length));
     }

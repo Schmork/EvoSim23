@@ -31,7 +31,7 @@ public class SpawnBehaviour : MonoBehaviour
         if (pos == null) return;
 
         var cell = spawner.Spawn((Vector3)pos);
-        _timeSinceLastSpawn = 0f;
+        cell.NeuralNetwork = NeuralNetwork.NewRandom();
         cell.Size = size;
         cell.Pool = pool;
         cell.transform.rotation = Quaternion.Euler(0, 0, Random.Range(0f, 360f));
@@ -40,8 +40,7 @@ public class SpawnBehaviour : MonoBehaviour
         float saturation = 0.9f;
         float lightness = 0.8f;
         cell.Renderer.color = Color.HSVToRGB(hue, saturation, lightness);
-
-        cell.NeuralNetwork = NeuralNetwork.NewRandom();
+        _timeSinceLastSpawn = 0f;
     }
 
     Vector3? GetSpawnPosition(float size, int attempts)

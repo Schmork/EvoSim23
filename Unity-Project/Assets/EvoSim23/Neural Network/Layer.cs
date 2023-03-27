@@ -13,12 +13,12 @@ public class Layer : ICloneable
 
     public Layer(int neuronCount, int inputLength, bool isInputLayer = false)
     {
+        int i = neuronCount / 4;
         Functions = new ActivationFunction[isInputLayer ? 0 : neuronCount];
-        Biases = new float4[neuronCount / 4];
-        Memory = new float4[neuronCount / 4];
-        Weights = new float4[neuronCount * inputLength / 4];
+        Biases = new float4[i];
+        Memory = new float4[i];
+        Weights = new float4[i * inputLength];
 
-        int i;
         for (i = 0; i < Biases.Length; i++)
         {
             Biases[i] = RandomInitialValue();
@@ -37,12 +37,10 @@ public class Layer : ICloneable
 
     static float4 RandomInitialValue()
     {
-        return new float4(
-            Utility.Gauss(WorldConfig.GaussStd),
-            Utility.Gauss(WorldConfig.GaussStd),
-            Utility.Gauss(WorldConfig.GaussStd),
-            Utility.Gauss(WorldConfig.GaussStd)
-            );
+        return new float4(Utility.Gauss(WorldData.GaussStd),
+                          Utility.Gauss(WorldData.GaussStd),
+                          Utility.Gauss(WorldData.GaussStd),
+                          Utility.Gauss(WorldData.GaussStd));
     }
 
     [BurstCompile]
