@@ -3,7 +3,7 @@ using UnityEngine;
 
 
 [Serializable]
-public class HeroData
+public struct HeroData
 {
     public float Score;
     public NeuralNetwork Network;
@@ -39,8 +39,6 @@ public class ValhallaData : ScriptableObject
 
         Heroes[i].Score = score;
         Heroes[i].Network = network;
-
-        IO.SaveHero(metric, Heroes[i]);
     }
 
     public NeuralNetwork GetHero()

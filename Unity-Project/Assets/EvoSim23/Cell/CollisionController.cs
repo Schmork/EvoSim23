@@ -1,25 +1,29 @@
+using Unity.Burst;
 using UnityEngine;
 
+[BurstCompile]
 public class CollisionController : MonoBehaviour
 {
     [SerializeField] CellController cc;
 
+    [BurstCompile]
     void OnTriggerStay2D(Collider2D collider)
     {
         var other = collider.GetComponent<CellController>();
         if (other.Size > cc.Size) return;
-        var diff = cc.Size * WorldConfig.AbsorbSpeed * Time.deltaTime;
-        if (other.Size < diff) diff = other.Size;
 
-        var ratio = diff / cc.Size;
+        var morsel = Mathf.Sqrt(1 + cc.Size) * WorldConfig.AbsorbSpeed * Time.deltaTime;
+        morsel = Mathf.Min(morsel, other.Size);
+
+        var ratio = morsel / cc.Size;
         var col1 = cc.Renderer.color;
         var col2 = other.Renderer.color;
         cc.Renderer.color = MixColors(col1, col2, ratio);
 
-        cc.Size += diff;
-        other.Size -= diff;
+        cc.Size += morsel * WorldConfig.AbsorbEfficiency;
+        other.Size -= morsel;
 
-        cc.Stats.MassEaten += diff;
+        cc.Stats.MassEaten += morsel;
     }
     private Color MixColors(Color color1, Color color2, float ratio)
     {

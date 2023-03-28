@@ -14,12 +14,16 @@ public class WorldConfig : MonoBehaviour
     [SerializeField] float absorbSpeed;
     public static float AbsorbSpeed;
 
+    [SerializeField] float absorbEfficiency;
+    public static float AbsorbEfficiency;
+
     private void Awake()
     {
         DeathBelowSize = deathBelowSize;
         ShrinkSpeed = shrinkSpeed;
         SpawnMargin = spawnMargin;
         AbsorbSpeed = absorbSpeed;
+        AbsorbEfficiency = absorbEfficiency;
     }
 
     public static float FPS;

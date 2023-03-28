@@ -1,6 +1,8 @@
+using Unity.Burst;
 using Unity.Mathematics;
 using UnityEngine;
 
+[BurstCompile]
 public class NeuralNetworkController : MonoBehaviour
 {
     [SerializeField] CellController cc;
@@ -19,6 +21,7 @@ public class NeuralNetworkController : MonoBehaviour
         actions = new float4[2];
     }
 
+    [BurstCompile]
     private void Update()
     {
         lastSensorUse += Time.deltaTime;
@@ -67,7 +70,7 @@ public class NeuralNetworkController : MonoBehaviour
             */
         }
 
-        var sizePow = Mathf.Pow(cc.Size + 1, 2f);
+        var sizePow = math.pow(cc.Size + 1, 2f);
         var powTime = Time.deltaTime / sizePow;
         var thrust = actions[0].w * 500f * powTime;
         var torque = actions[0].x * 500f * powTime;

@@ -1,5 +1,8 @@
+using Unity.Burst;
+using Unity.Mathematics;
 using UnityEngine;
 
+[BurstCompile]
 public class SizeController : MonoBehaviour
 {
     [SerializeField] CellController cc;
@@ -26,10 +29,10 @@ public class SizeController : MonoBehaviour
     public float ToScale() => ToScale(size);
     public static float ToScale(float x) => Mathf.Pow(x + 1, 0.5f) - 1;
 
+    [BurstCompile]
     void Update()
     {
-        var sizeTime = WorldConfig.ShrinkSpeed * Mathf.Pow(size + 1, 3f) * Time.deltaTime;
-        var slow = (1 + cc.Rb.velocity.magnitude) * 5000f;
-        Size -= sizeTime / slow * Mathf.Abs(cc.Rb.angularVelocity);
+        var sizeTime = WorldConfig.ShrinkSpeed * math.pow(size + 1, 3f) * Time.deltaTime;
+        Size -= sizeTime / math.sqrt(1 + cc.Rb.velocity.magnitude) * math.sqrt(1 + Mathf.Abs(cc.Rb.angularVelocity));
     }
 }
