@@ -1,6 +1,8 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.IO;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 using static ValhallaData;
 
 public class IO : MonoBehaviour
@@ -14,6 +16,7 @@ public class IO : MonoBehaviour
         LoadValhalla(valhallaData);
 
         worldData.OnStart();
+        SceneManager.LoadScene("World", LoadSceneMode.Additive);
     }
 
     void OnDisable()
@@ -24,22 +27,22 @@ public class IO : MonoBehaviour
 
     void SaveWorld(WorldData data)
     {
-        string json = JsonUtility.ToJson(data);
-        File.WriteAllText(GetPath(data.name), json);
+        var path = GetPath("WorldData");
+        var dataJson = JsonUtility.ToJson(data);
+        File.WriteAllText(path, dataJson);
     }
 
     void LoadWorld(WorldData data)
     {
-        var path = GetPath(data.name);
-        if (!File.Exists(path)) return;
-        string json = File.ReadAllText(path);
-        JsonUtility.FromJsonOverwrite(json, data);
-    }
+        var path = GetPath("WorldData");
+        var json = File.ReadAllText(path);
+        var jsonObject = JsonUtility.FromJson<Dictionary<string, object>>(json);
 
-    public static void SaveHero(Metric metric, HeroData data)
-    {
-        string dataJson = JsonUtility.ToJson(data);
-        File.WriteAllText(GetPath("Valhalla " + metric.ToString()), dataJson);
+        foreach (var kvp in jsonObject)
+        {
+            var property = typeof(WorldData).GetProperty(kvp.Key);
+            property?.SetValue(worldData, Convert.ChangeType(kvp.Value, property.PropertyType));
+        }
     }
 
     void LoadValhalla(ValhallaData valhalla)
@@ -48,7 +51,7 @@ public class IO : MonoBehaviour
         {
             var path = GetPath("Valhalla " + metric.ToString());
             if (!File.Exists(path)) continue;
-            string json = File.ReadAllText(path);
+            var json = File.ReadAllText(path);
             var hero = JsonUtility.FromJson<HeroData>(json);
             valhalla.Heroes[(int)metric] = hero;
         }
@@ -60,6 +63,12 @@ public class IO : MonoBehaviour
         {
             SaveHero((Metric)i, valhallaData.Heroes[i]);
         }
+    }
+
+    public static void SaveHero(Metric metric, HeroData data)
+    {
+        var dataJson = JsonUtility.ToJson(data);
+        File.WriteAllText(GetPath("Valhalla " + metric.ToString()), dataJson);
     }
 
     static string GetPath(string name) => Path.Combine(Application.persistentDataPath, name + ".json");

@@ -13,11 +13,23 @@ public class WorldData : ScriptableObject
         Area,
     }
 
-    [SerializeField] bool toggleValhalla;
+    [SerializeField] private bool toggleValhalla;
     public bool ToggleValhalla { get => toggleValhalla; set => toggleValhalla = value; }
 
-    [SerializeField] bool toggleWorld;
+    [SerializeField] private bool toggleWorld;
     public bool ToggleWorld { get => toggleWorld; set => toggleWorld = value; }
+
+    [SerializeField] private float fence;
+    public float Fence { get => fence; set => fence = value; }
+
+    [SerializeField] private float cameraZoom;
+    public float CameraZoom { get => cameraZoom; set => cameraZoom = value; }
+
+    [SerializeField] private Vector2 cameraPos;
+    public Vector2 CameraPos { get => cameraPos; set => cameraPos = value; }
+
+    [SerializeField] private Vector3 area;
+    public Vector3 Area { get => area; set => area = value; }
 
     [SerializeField] float speed;
     public float Speed
@@ -41,18 +53,6 @@ public class WorldData : ScriptableObject
         }
     }
     public static float GaussStd;
-
-    [SerializeField] float fence;
-    public float Fence { get => fence; set => fence = value; }
-
-    [SerializeField] Vector3 area;
-    public Vector3 Area { get => area; set => area = value; }
-
-    [SerializeField] float cameraZoom;
-    public float CameraZoom { get => cameraZoom; set => cameraZoom = value; }
-
-    [SerializeField] Vector2 cameraPos;
-    public Vector2 CameraPos { get => cameraPos; set => cameraPos = value; }
 
     public void OnStart()
     {

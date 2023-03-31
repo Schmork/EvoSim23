@@ -45,6 +45,7 @@ public class CellController : MonoBehaviour
 
     void Update()
     {
-        if (transform.position.magnitude > worldData.Fence * sc.Size) pool.Deactivate(this);
+        if (transform.position.magnitude > worldData.Fence * sc.Size)
+            pool.Deactivate(this);
     }
 }

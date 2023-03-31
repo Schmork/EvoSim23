@@ -36,12 +36,12 @@ public class NeuralNetworkController : MonoBehaviour
             if (i / 4 > 0 && i % 4 == 0) n++;
         }
 
-        inputs[n++] = new float4(
-            cc.Size / 100f,
-            cc.Rb.velocity.magnitude / 10f,
-            Vector2.Dot(cc.Rb.velocity, transform.up),
-            System.MathF.Tanh(cc.Rb.angularVelocity / 900f)
-            );
+        //inputs[n++] = new float4(
+        //    cc.Size / 100f,
+        //    cc.Rb.velocity.magnitude / 10f,
+        //    Vector2.Dot(cc.Rb.velocity, transform.up),
+        //    System.MathF.Tanh(cc.Rb.angularVelocity / 900f)
+        //    );
 
         if (lastSensorUse > actions[0].y)
         {

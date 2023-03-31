@@ -22,6 +22,10 @@ public class CameraController : MonoBehaviour
 
     void Update()
     {
+        //if (!Input.GetMouseButton(0) || 
+        //    !Input.GetMouseButtonDown(0) || 
+        //    !Input.GetMouseButtonDown(2)) return;
+
         float adjustedPanSpeed = panSpeed * Mathf.Pow(zoomStart, 0.3f);
 
         if (Input.GetMouseButtonDown(0) && EventSystem.current.currentSelectedGameObject == null)

@@ -32,9 +32,10 @@ public class SpawnBehaviour : MonoBehaviour
         var pos = GetSpawnPosition(size, 10);
         if (pos == null) return;
 
+        var gauss = Utility.Gauss(worldData.Gauss);
         var cell = spawner.Spawn((Vector3)pos);
         cell.NeuralNetwork = valhallaData.GetHero();
-        cell.NeuralNetwork.Mutate(Utility.Gauss(worldData.Gauss));
+        cell.NeuralNetwork.Mutate(gauss);
         cell.Size = size;
         cell.Pool = pool;
         cell.transform.rotation = Quaternion.Euler(0, 0, Random.Range(0f, 360f));
@@ -49,9 +50,9 @@ public class SpawnBehaviour : MonoBehaviour
     Vector3? GetSpawnPosition(float size, int attempts)
     {
         if (attempts <= 0) return null;
-
-        var width = worldData.Area.x * worldData.Area.z * 0.5f;
-        var height = worldData.Area.y * worldData.Area.z * 0.5f;
+        var area = worldData.Area;
+        var width = area.x * area.z * 0.5f;
+        var height = area.y * area.z * 0.5f;
         var pos = new Vector3(Random.Range(-width, width),
                               Random.Range(-height, height),
                               transform.position.z);

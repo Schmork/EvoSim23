@@ -12,8 +12,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: e2de58a3d0f289146b9b2694fe1c8981, type: 3}
   m_Name: WorldData
   m_EditorClassIdentifier: 
-  speed: 61.42853
-  fence: 50
-  area: {x: 0, y: 0, z: 0}
+  toggleValhalla: 0
+  toggleWorld: 1
+  fence: 69.281746
   cameraZoom: 50
   cameraPos: {x: 0, y: 0}
+  area: {x: 88.764404, y: 49.862747, z: 1.0328448}
+  speed: 10
+  gauss: 0.26785672

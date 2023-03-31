@@ -15,13 +15,11 @@ public class WorldSlider : SliderValuePair
 
     void Start()
     {
-        slider.value = (float)worldData.GetType()
-                                       .GetProperty(parameter.ToString())
-                                       .GetValue(worldData);
+        slider.value = (float)typeof(WorldData).GetProperty(parameter.ToString())
+                                               .GetValue(worldData);
 
-        slider.onValueChanged.AddListener(value => worldData.GetType()
-                                                            .GetProperty(parameter.ToString())
-                                                            .SetValue(worldData, value));
+        slider.onValueChanged.AddListener(value => typeof(WorldData).GetProperty(parameter.ToString())
+                                                                    .SetValue(worldData, value));
     }
 
     protected override float Map(float value)

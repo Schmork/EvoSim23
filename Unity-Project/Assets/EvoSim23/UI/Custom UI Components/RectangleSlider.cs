@@ -5,14 +5,12 @@ using UnityEngine.EventSystems;
 
 public class RectangleSlider : MonoBehaviour, IPointerDownHandler, IDragHandler, IEventSystemHandler
 {
+    [SerializeField] WorldData worldData;
     [SerializeField] Slider scaleSlider;
     [SerializeField] RectTransform knob;
     [SerializeField] RectTransform slideArea;
     [SerializeField] RectTransform valueArea;
     [SerializeField] TMP_Text text;
-
-    [SerializeField] WorldData worldData;
-    [SerializeField] WorldData.Parameter parameter;
 
     [SerializeField]
     Vector3 _value;
@@ -31,13 +29,13 @@ public class RectangleSlider : MonoBehaviour, IPointerDownHandler, IDragHandler,
             valueArea.sizeDelta = restoredPosition;
             scaleSlider.value = value.z;
 
-            worldData.GetType().GetProperty(parameter.ToString()).SetValue(worldData, value);
+            worldData.Area = value;
         }
     }
 
     void Awake()
     {
-        Value = (Vector3)worldData.GetType().GetProperty(parameter.ToString()).GetValue(worldData);
+        Value = worldData.Area;
         scaleSlider.onValueChanged.AddListener(value => Value = new Vector3(_value.x, _value.y, value));
     }
 
