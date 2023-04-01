@@ -27,12 +27,12 @@ public class SizeController : MonoBehaviour
     }
 
     public float ToScale() => ToScale(size);
-    public static float ToScale(float x) => Mathf.Pow(x + 1, 0.5f) - 1;
+    public static float ToScale(float x) => math.sqrt(1 + x) - 1;
 
     [BurstCompile]
     void Update()
     {
-        var sizeTime = WorldConfig.ShrinkSpeed * math.pow(size + 1, 3f) * Time.deltaTime;
+        var sizeTime = WorldConfig.ShrinkSpeed * math.pow(1 + size, 2.5f) * Time.deltaTime;
         Size -= sizeTime * math.sqrt(1 + Mathf.Abs(cc.Rb.angularVelocity)) / math.sqrt(1 + cc.Rb.velocity.magnitude);
     }
 }

@@ -39,7 +39,7 @@ public class NeuralNetwork : ICloneable
             Layers = new List<Layer>() { new Layer(numInputs, 0, true) }
         };
         //nn.AddLayer(12);
-        //nn.AddLayer(8);
+        nn.AddLayer(8);
         nn.AddLayer(4);
 
         for (int i = 0; i < nn.Memory.Length; i++) nn.RandomMemory(i);

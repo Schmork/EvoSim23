@@ -1,6 +1,6 @@
+using UnityEngine;
 using Unity.Burst;
 using Unity.Mathematics;
-using UnityEngine;
 
 public class SensorController : MonoBehaviour
 {
@@ -10,8 +10,6 @@ public class SensorController : MonoBehaviour
     const float sensorRadius = 10f;
     const float comparisonSafety = 0.9f; // reduce own size in comparisons (safety margin)
     readonly public static int numSensorValues = 4;
-
-    readonly Collider2D[] hitsBuffer = new Collider2D[50];
 
     struct TrackedCell
     {
@@ -28,16 +26,16 @@ public class SensorController : MonoBehaviour
     [BurstCompile]
     public float4 Scan()
     {
-        var hits = Physics2D.OverlapCircleNonAlloc(transform.position, sensorRadius, hitsBuffer, layer);
+        var hits = Physics2D.OverlapCircleAll(transform.position, sensorRadius, layer);
 
         TrackedCell prey = new();
         TrackedCell threat = new(float.MaxValue);
 
         var mySize = transform.localScale.magnitude * comparisonSafety;
 
-        for (int i = 0; i < hits; i++)
+        for (int i = 0; i < hits.Length; i++)
         {
-            var hit = hitsBuffer[i];
+            var hit = hits[i];
             if (hit.gameObject == gameObject) continue;
 
             var otherSize = hit.transform.localScale.magnitude;

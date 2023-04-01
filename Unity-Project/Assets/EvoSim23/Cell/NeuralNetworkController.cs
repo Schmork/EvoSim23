@@ -70,10 +70,10 @@ public class NeuralNetworkController : MonoBehaviour
             */
         }
 
-        var sizePow = math.pow(cc.Size + 1, 2f);
-        var powTime = Time.deltaTime / sizePow;
-        var thrust = actions[0].w * 500f * powTime;
-        var torque = actions[0].x * 500f * powTime;
+        var sizePow = math.pow(cc.Size + 1, 1.5f);
+        var powTime = Time.deltaTime * 500f / sizePow;
+        var thrust = actions[0].w * powTime;
+        var torque = actions[0].x * powTime;
         cc.Rb.AddForce(thrust * transform.up);
         cc.Rb.AddTorque(torque);
     }

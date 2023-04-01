@@ -61,7 +61,8 @@ public class ValhallaData : ScriptableObject
     }
 
     public HeroData[] Heroes { get; private set; }
-    public event Action<Metric, float> HeroAdded;
+
+    public event Action<Metric, float> ScoreChanged;
 
     float[] chances;
     float sum = 0;
@@ -80,7 +81,7 @@ public class ValhallaData : ScriptableObject
         for (int i = 0; i < Heroes.Length; i++)
         {
             Heroes[i] = new HeroData();
-            HeroAdded?.Invoke((Metric)i, 0);
+            ScoreChanged?.Invoke((Metric)i, 0);
         }
     }
 
@@ -88,7 +89,7 @@ public class ValhallaData : ScriptableObject
     {
         foreach (Metric metric in Enum.GetValues(typeof(Metric)))
         {
-            HeroAdded?.Invoke(metric, Heroes[(int)metric].Score);
+            ScoreChanged?.Invoke(metric, Heroes[(int)metric].Score);
 
             var propertyName = metric.ToString();
             var property = GetType().GetProperty(propertyName);
@@ -101,6 +102,12 @@ public class ValhallaData : ScriptableObject
         UpdateSum();
     }
 
+    public void DecayScores(Metric metric)
+    {
+        Heroes[(int)metric].Score *= (1 - _decaySpeed);
+        ScoreChanged?.Invoke(metric, Heroes[(int)metric].Score);
+    }
+
     public void AddHero(Metric metric, float score, NeuralNetwork network)
     {
         var i = (int)metric;
@@ -108,7 +115,7 @@ public class ValhallaData : ScriptableObject
 
         Heroes[i].Score = score;
         Heroes[i].Network = network;
-        HeroAdded?.Invoke(metric, score);
+        ScoreChanged?.Invoke(metric, score);
     }
 
     public NeuralNetwork GetHero()
@@ -141,7 +148,7 @@ public class ValhallaData : ScriptableObject
         Init();
         foreach (Metric metric in Enum.GetValues(typeof(Metric)))
         {
-            HeroAdded?.Invoke(metric, Heroes[(int)metric].Score);
+            ScoreChanged?.Invoke(metric, Heroes[(int)metric].Score);
         }
 
         foreach (var cell in FindObjectsByType<CellController>(FindObjectsInactive.Include, FindObjectsSortMode.None))

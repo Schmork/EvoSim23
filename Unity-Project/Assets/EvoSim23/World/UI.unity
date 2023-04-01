@@ -131,6 +131,10 @@ PrefabInstance:
     m_TransformParent: {fileID: 761861359}
     m_Modifications:
     - target: {fileID: 275688586353394524, guid: a59311f0f54df8443857095755adbc7f, type: 3}
+      propertyPath: type
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 275688586353394524, guid: a59311f0f54df8443857095755adbc7f, type: 3}
       propertyPath: panel
       value: 
       objectReference: {fileID: 699410505}
@@ -3961,7 +3965,7 @@ MonoBehaviour:
   m_HandleRect: {fileID: 5468026934457016221}
   m_Direction: 0
   m_MinValue: 0
-  m_MaxValue: 1
+  m_MaxValue: 0.0003
   m_WholeNumbers: 0
   m_Value: 0
   m_OnValueChanged:
@@ -5640,7 +5644,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   slider: {fileID: 1334752979043587710}
   text: {fileID: 981058274573720345}
-  digits: 2
+  digits: 5
   valhallaData: {fileID: 11400000, guid: b9475a5fd9bd088479909baee21ae389, type: 2}
   property: DecaySpeed
 --- !u!1 &8857750051981210614
