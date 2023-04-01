@@ -12,3 +12,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 07f52c0a211c5634aa18573df6548d0a, type: 3}
   m_Name: ValhallaData
   m_EditorClassIdentifier: 
+  _distanceTravelled: 0.50000066
+  _timeSurvived: 0.72321427
+  _massEaten: 0.21428615
+  _decaySpeed: 1
