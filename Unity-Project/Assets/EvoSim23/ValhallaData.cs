@@ -77,7 +77,11 @@ public class ValhallaData : ScriptableObject
     void Init()
     {
         Heroes = new HeroData[Enum.GetNames(typeof(Metric)).Length];
-        for (int i = 0; i < Heroes.Length; i++) Heroes[i] = new HeroData();
+        for (int i = 0; i < Heroes.Length; i++)
+        {
+            Heroes[i] = new HeroData();
+            HeroAdded?.Invoke((Metric)i, 0);
+        }
     }
 
     public void OnStart()
@@ -119,11 +123,12 @@ public class ValhallaData : ScriptableObject
     public int PickMetric()
     {
         float randomValue = UnityEngine.Random.value * sum;
+        var tempSum = 0f;
 
         for (int i = 0; i < chances.Length; i++)
         {
-            sum += chances[i];
-            if (randomValue < sum) return i;
+            tempSum += chances[i];
+            if (randomValue < tempSum) return i;
         }
 
         Debug.Log("Error when picking metric");

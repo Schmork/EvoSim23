@@ -25,6 +25,7 @@ public class CollisionController : MonoBehaviour
 
         cc.Stats.MassEaten += morsel;
     }
+
     private Color MixColors(Color color1, Color color2, float ratio)
     {
         // Convert colors to HSV

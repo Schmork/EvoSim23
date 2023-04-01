@@ -7,7 +7,7 @@ public class ValhallaSlider : SliderValuePair
     [SerializeField] ValhallaData.Metric metric;
     [SerializeField] TMP_Text label, record;
 
-    void Start()
+    void Awake()
     {
         valhallaData.HeroAdded += OnHeroAdded;
         slider.value = (float)typeof(ValhallaData).GetProperty(metric.ToString())

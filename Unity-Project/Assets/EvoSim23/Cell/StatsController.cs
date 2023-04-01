@@ -42,4 +42,11 @@ public class StatsController : MonoBehaviour
         TimeSurvived += Time.deltaTime;
         DistanceTravelled += cc.Rb.velocity.magnitude * Time.deltaTime;
     }
+
+    void OnDisable()
+    {
+        distanceTravelled = 0;
+        massEaten = 0;
+        timeSurvived = 0;
+    }
 }
