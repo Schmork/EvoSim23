@@ -11,7 +11,7 @@ public class NeuralNetwork : ICloneable
     public List<Layer> Layers;
     public int generation;
 
-    public static readonly int numInputs = 8;  // 4 self, + sensors + memory
+    public static readonly int numInputs = 8;   // sensors (4) + memory (4)
     public int2[] Memory;                       // x = layer, y = neuron index
 
     enum MutationType
@@ -35,11 +35,11 @@ public class NeuralNetwork : ICloneable
         var nn = new NeuralNetwork
         {
             generation = 0,
-            Memory = new int2[4],
+            Memory = new int2[1],
             Layers = new List<Layer>() { new Layer(numInputs, 0, true) }
         };
         //nn.AddLayer(12);
-        nn.AddLayer(8);
+        //nn.AddLayer(8);
         nn.AddLayer(4);
 
         for (int i = 0; i < nn.Memory.Length; i++) nn.RandomMemory(i);
@@ -106,7 +106,7 @@ public class NeuralNetwork : ICloneable
             {
                 MutationType.BIAS => layers[i].Biases.Length,
                 MutationType.WEIGHT => layers[i].Weights.Length,
-                MutationType.MEMORY => layers[i].Memory.Length,
+                MutationType.MEMORY => layers[i].Results.Length,
                 MutationType.FUNCTION => layers[i].Functions.Length,
                 _ => throw new Exception("Invalid element type")
             };
@@ -119,7 +119,7 @@ public class NeuralNetwork : ICloneable
             {
                 MutationType.BIAS => layers[i].Biases.Length,
                 MutationType.WEIGHT => layers[i].Weights.Length,
-                MutationType.MEMORY => layers[i].Memory.Length,
+                MutationType.MEMORY => layers[i].Results.Length,
                 MutationType.FUNCTION => layers[i].Functions.Length,
                 _ => throw new Exception("Invalid element type")
             };

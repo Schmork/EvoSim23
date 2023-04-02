@@ -27,14 +27,20 @@ public class NeuralNetworkController : MonoBehaviour
         lastSensorUse += Time.deltaTime;
         lastBrainUse += Time.deltaTime;
 
-
-        int i;
         int n = 0;
-        for (i = 0; i < neuralNetwork.Memory.Length; i++)
-        {
-            inputs[n] = neuralNetwork.Layers[neuralNetwork.Memory[i].x].Memory[neuralNetwork.Memory[i].y];
-            if (i / 4 > 0 && i % 4 == 0) n++;
-        }
+        var layerIndex = neuralNetwork.Memory[n].x;
+        var neurnIndex = neuralNetwork.Memory[n].y;
+        inputs[n++] = neuralNetwork.Layers[layerIndex].Results[neurnIndex];
+
+        //for (i = 0; i < neuralNetwork.Memory.Length; i++)
+        //for (; n < neuralNetwork.Memory.Length; n++)
+        //{
+        //    var layerIndex = neuralNetwork.Memory[n].x;
+        //    var memryIndex = neuralNetwork.Memory[n].y;
+        //    inputs[n] = neuralNetwork.Layers[layerIndex].Memory[memryIndex];
+        //    //inputs[n] = neuralNetwork.Layers[layerIndex].Memory[memryIndex];
+        //    //if (i / 4 > 0 && i % 4 == 0) n++;
+        //}
 
         //inputs[n++] = new float4(
         //    cc.Size / 100f,
@@ -48,7 +54,6 @@ public class NeuralNetworkController : MonoBehaviour
             sensorData = cc.Sensors.Scan();
             lastSensorUse = 0;
         }
-
         inputs[n++] = sensorData;
 
         if (lastBrainUse > actions[0].z)

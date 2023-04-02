@@ -9,14 +9,14 @@ public class Layer : ICloneable
     public ActivationFunction[] Functions;
     public float4[] Biases;
     public float4[] Weights;
-    public float4[] Memory;
+    public float4[] Results;
 
     public Layer(int neuronCount, int inputLength, bool isInputLayer = false)
     {
         int i = neuronCount / 4;
         Functions = new ActivationFunction[isInputLayer ? 0 : neuronCount];
         Biases = new float4[i];
-        Memory = new float4[i];
+        Results = new float4[i];
         Weights = new float4[i * inputLength];
 
         for (i = 0; i < Biases.Length; i++)
@@ -46,38 +46,34 @@ public class Layer : ICloneable
     [BurstCompile]
     public float4[] FeedForwardInput(float4[] input)
     {
-        float4[] output = new float4[Biases.Length];
         for (int i = 0; i < Biases.Length; i++)
         {
-            output[i] = Biases[i] + input[i];
-            Memory[i] = output[i];
+            Results[i] = Biases[i] + input[i];
         }
-        return output;
+        return Results;
     }
 
     [BurstCompile]
     public float4[] FeedForward(float4[] input)
     {
         float sum;
-        float4[] output = new float4[Biases.Length];
         for (int i = 0; i < Biases.Length; i++)
         {
             var weightSum = Biases[i];
             for (int j = 0; j < input.Length; j++)
                 weightSum += Weights[i * input.Length + j] * input[j];
             sum = math.csum(weightSum);
-            output[i].w = Activation.Evaluate(Functions[i + 0], sum);
-            output[i].x = Activation.Evaluate(Functions[i + 1], sum);
-            output[i].y = Activation.Evaluate(Functions[i + 2], sum);
-            output[i].z = Activation.Evaluate(Functions[i + 3], sum);
-            Memory[i] = output[i];
+            Results[i].w = Activation.Evaluate(Functions[i + 0], sum);
+            Results[i].x = Activation.Evaluate(Functions[i + 1], sum);
+            Results[i].y = Activation.Evaluate(Functions[i + 2], sum);
+            Results[i].z = Activation.Evaluate(Functions[i + 3], sum);
         }
-        return output;
+        return Results;
     }
 
-    Layer(float4[] memory, float4[] weights, float4[] biases, ActivationFunction[] functions)
+    Layer(float4[] results, float4[] weights, float4[] biases, ActivationFunction[] functions)
     {
-        Memory = memory;
+        Results = results;
         Weights = weights;
         Biases = biases;
         Functions = functions;
@@ -86,7 +82,7 @@ public class Layer : ICloneable
     public object Clone()
     {
         return new Layer(
-               Memory.Clone() as float4[],
+               Results.Clone() as float4[],
                Weights.Clone() as float4[],
                Biases.Clone() as float4[],
                Functions.Clone() as ActivationFunction[]
