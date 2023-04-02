@@ -19,13 +19,23 @@ public class Layer : ICloneable
         Results = new float4[i];
         Weights = new float4[i * inputLength];
 
+        if (!isInputLayer)
+        {
+            for (i = 0; i < Functions.Length; i++)
+            {
+                Functions[i] = RandomFunction();
+            }
+        }
+
         for (i = 0; i < Biases.Length; i++)
         {
             Biases[i] = RandomInitialValue();
-            if (!isInputLayer) Functions[i] = RandomFunction();
         }
+
         for (i = 0; i < Weights.Length; i++)
+        {
             Weights[i] = RandomInitialValue();
+        }
     }
 
     public static ActivationFunction RandomFunction()
