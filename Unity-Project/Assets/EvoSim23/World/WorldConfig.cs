@@ -26,6 +26,7 @@ public class WorldConfig : MonoBehaviour
         AbsorbEfficiency = absorbEfficiency;
     }
 
+    public static float FixedSatVal = 0.9f;
     public static float FPS;
 
     System.Collections.IEnumerator Start()

@@ -1,6 +1,6 @@
+using UnityEngine;
 using Unity.Burst;
 using Unity.Mathematics;
-using UnityEngine;
 
 [BurstCompile]
 public class NeuralNetworkController : MonoBehaviour
@@ -14,6 +14,9 @@ public class NeuralNetworkController : MonoBehaviour
 
     float lastSensorUse;
     float lastBrainUse;
+
+    const float sensorFee = 0.001f;
+    const float brainFee = 0.002f;
 
     void OnEnable()
     {
@@ -53,6 +56,7 @@ public class NeuralNetworkController : MonoBehaviour
         {
             sensorData = cc.Sensors.Scan();
             lastSensorUse = 0;
+            cc.Size -= sensorFee;
         }
         inputs[n++] = sensorData;
 
@@ -63,6 +67,7 @@ public class NeuralNetworkController : MonoBehaviour
             actions[0].x = math.clamp(actions[0].x, -1, 1);
 
             lastBrainUse = 0;
+            cc.Size -= brainFee;
 
             /*
             ActiveBrain = Brains[actions[1] switch

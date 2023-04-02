@@ -39,11 +39,7 @@ public class SpawnBehaviour : MonoBehaviour
         cell.Size = size;
         cell.Pool = pool;
         cell.transform.rotation = Quaternion.Euler(0, 0, Random.Range(0f, 360f));
-
-        float hue = Random.Range(0f, 360f) / 360f;
-        float saturation = 0.9f;
-        float lightness = 0.8f;
-        cell.Renderer.color = Color.HSVToRGB(hue, saturation, lightness);
+        cell.Renderer.color = Color.HSVToRGB(Random.value, WorldConfig.FixedSatVal, WorldConfig.FixedSatVal);
         _timeSinceLastSpawn = 0f;
     }
 

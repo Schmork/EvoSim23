@@ -135,11 +135,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 9f15375ad490eab42b6f32d8b7b05da3, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  deathBelowSize: 0.2
+  deathBelowSize: 0.35
   shrinkSpeed: 0.0001
-  spawnMargin: 0.85
+  spawnMargin: 0.3
   absorbSpeed: 1.5
-  absorbEfficiency: 0.6
+  absorbEfficiency: 0.65
 --- !u!114 &1037957968066150609
 MonoBehaviour:
   m_ObjectHideFlags: 0

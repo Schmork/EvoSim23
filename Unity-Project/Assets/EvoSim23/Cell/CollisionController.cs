@@ -15,27 +15,15 @@ public class CollisionController : MonoBehaviour
         var morsel = Mathf.Sqrt(1 + cc.Size) * WorldConfig.AbsorbSpeed * Time.deltaTime;
         morsel = Mathf.Min(morsel, other.Size);
 
-        var ratio = morsel / cc.Size;
-        var col1 = cc.Renderer.color;
-        var col2 = other.Renderer.color;
-        cc.Renderer.color = MixColors(col1, col2, ratio);
+        Color.RGBToHSV(cc.Renderer.color, out float hue1, out _, out _);
+        Color.RGBToHSV(other.Renderer.color, out float hue2, out _, out _);
+
+        var hue = Mathf.LerpAngle(hue1, hue2, morsel / cc.Size);
+        cc.Renderer.color = Color.HSVToRGB(hue, WorldConfig.FixedSatVal, WorldConfig.FixedSatVal);
 
         cc.Size += morsel * WorldConfig.AbsorbEfficiency;
         other.Size -= morsel;
 
         cc.Stats.MassEaten += morsel;
-    }
-
-    private Color MixColors(Color color1, Color color2, float ratio)
-    {
-        // Convert colors to HSV
-        Color.RGBToHSV(color1, out float h1, out _, out _);
-        Color.RGBToHSV(color2, out float h2, out _, out _);
-
-        // Find the weighted average of the hues
-        float hue = Mathf.Lerp(h1, h2, ratio);
-
-        // Create a new color with the mixed hue and the fixed saturation and value
-        return Color.HSVToRGB(hue, 0.9f, 0.8f);
     }
 }
