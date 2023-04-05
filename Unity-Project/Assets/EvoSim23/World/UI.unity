@@ -458,15 +458,15 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 4635995842344383182, guid: 6682eef92ff82b2478d274d3bfef07c7, type: 3}
       propertyPath: m_Value
-      value: 50
-      objectReference: {fileID: 0}
-    - target: {fileID: 4635995842344383182, guid: 6682eef92ff82b2478d274d3bfef07c7, type: 3}
-      propertyPath: m_MaxValue
       value: 100
       objectReference: {fileID: 0}
     - target: {fileID: 4635995842344383182, guid: 6682eef92ff82b2478d274d3bfef07c7, type: 3}
+      propertyPath: m_MaxValue
+      value: 200
+      objectReference: {fileID: 0}
+    - target: {fileID: 4635995842344383182, guid: 6682eef92ff82b2478d274d3bfef07c7, type: 3}
       propertyPath: m_MinValue
-      value: 10
+      value: 50
       objectReference: {fileID: 0}
     - target: {fileID: 4763899056902610319, guid: 6682eef92ff82b2478d274d3bfef07c7, type: 3}
       propertyPath: m_Enabled
@@ -4719,9 +4719,9 @@ MonoBehaviour:
   m_HandleRect: {fileID: 2452094395762334837}
   m_Direction: 0
   m_MinValue: 0.1
-  m_MaxValue: 2
+  m_MaxValue: 5
   m_WholeNumbers: 0
-  m_Value: 0.25
+  m_Value: 0.6
   m_OnValueChanged:
     m_PersistentCalls:
       m_Calls: []

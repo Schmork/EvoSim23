@@ -136,8 +136,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   deathBelowSize: 0.35
-  shrinkSpeed: 0.0001
-  spawnMargin: 0.3
+  shrinkSpeed: 0.001
+  spawnMargin: 0.2
   absorbSpeed: 1.5
   absorbEfficiency: 0.65
 --- !u!114 &1037957968066150609
@@ -217,5 +217,5 @@ MonoBehaviour:
   minSpawnInterval: 0.15
   pool: {fileID: 1037957968066150609}
   _prefab: {fileID: 4899608772384843270, guid: abacf299e7dfaec4697564378c06fc29, type: 3}
-  spawnSize: 2
-  spawnVariance: 0.3
+  spawnSize: 3
+  spawnVariance: 0.4

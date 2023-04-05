@@ -32,14 +32,15 @@ public class SpawnBehaviour : MonoBehaviour
         var pos = GetSpawnPosition(size, 10);
         if (pos == null) return;
 
-        var gauss = Utility.Gauss(worldData.Gauss);
         var cell = spawner.Spawn((Vector3)pos);
         cell.NeuralNetwork = valhallaData.GetHero();
-        cell.NeuralNetwork.Mutate(gauss);
+        cell.NeuralNetwork.Mutate(Utility.Gauss(worldData.Gauss));
         cell.Size = size;
         cell.Pool = pool;
         cell.transform.rotation = Quaternion.Euler(0, 0, Random.Range(0f, 360f));
-        cell.Renderer.color = Color.HSVToRGB(Random.value, WorldConfig.FixedSatVal, WorldConfig.FixedSatVal);
+        //cell.Renderer.color = Color.HSVToRGB(Random.value, WorldConfig.FixedSatVal, WorldConfig.FixedSatVal);
+        var hue = (pos.Value.x + worldData.Area.x * worldData.Area.z * 0.5f) / (worldData.Area.x * worldData.Area.z);
+        cell.Renderer.color = Color.HSVToRGB(hue, WorldConfig.FixedSatVal, WorldConfig.FixedSatVal);
         _timeSinceLastSpawn = 0f;
     }
 

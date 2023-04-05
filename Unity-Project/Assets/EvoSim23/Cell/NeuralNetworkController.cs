@@ -21,7 +21,7 @@ public class NeuralNetworkController : MonoBehaviour
     void OnEnable()
     {
         inputs = new float4[NeuralNetwork.numInputs / 4];
-        actions = new float4[2];
+        actions = new float4[1];
     }
 
     [BurstCompile]
@@ -79,12 +79,29 @@ public class NeuralNetworkController : MonoBehaviour
             }];
             */
         }
-
-        var sizePow = math.pow(cc.Size + 1, 1.5f);
-        var powTime = Time.deltaTime * 500f / sizePow;
-        var thrust = actions[0].w * powTime;
-        var torque = actions[0].x * powTime;
+        
+        var force = Time.deltaTime * 10f / math.sqrt(1 + cc.Size);
+        var thrust = actions[0].w * force * 20f;
+        var torque = actions[0].x * force;
         cc.Rb.AddForce(thrust * transform.up);
         cc.Rb.AddTorque(torque);
+
+        //if (actions[1].w > 0)
+        //{
+        //    var childSize = cc.Size * 0.4f;
+        //    var pos = transform.position - transform.up * SizeController.ToScale(cc.Size) * 1.8f;
+        //    if (null != Physics2D.OverlapCircle(pos, SizeController.ToScale(childSize * 1.2f))) return;
+
+        //    var child = cc.Pool.Get(); 
+        //    child.transform.localEulerAngles = new Vector3(0f, 0f, transform.localEulerAngles.z + 180f); // flip
+        //    child.transform.parent = transform.parent;
+        //    child.transform.position = pos;
+        //    child.Pool = cc.Pool;
+        //    child.Size = childSize;
+        //    child.NeuralNetwork = cc.NeuralNetwork.Clone() as NeuralNetwork;
+        //    child.NeuralNetwork.Mutate(Utility.Gauss(cc.WorldData.Gauss));
+        //    child.Renderer.color = cc.Renderer.color;
+        //    cc.Size -= childSize * 0.1f;
+        //}
     }
 }
