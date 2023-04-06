@@ -6,6 +6,7 @@ public class ValhallaSlider : SliderValuePair
     [SerializeField] ValhallaData valhallaData;
     [SerializeField] ValhallaData.Metric metric;
     [SerializeField] TMP_Text label, record;
+    [SerializeField] int digits;
 
     void Start()
     {
@@ -25,6 +26,6 @@ public class ValhallaSlider : SliderValuePair
     void OnHeroAdded(ValhallaData.Metric metric, float score)
     {
         if (metric != this.metric) return;
-        record.text = score.ToString("0.0");
+        record.text = score.ToString($"F{digits}");
     }
 }

@@ -11,7 +11,6 @@ public class SpawnBehaviour : MonoBehaviour
     [SerializeField] CellPool pool;
     [SerializeField] GameObject _prefab;
     [SerializeField] float spawnSize;
-    [SerializeField] float spawnVariance;
     float _timeSinceLastSpawn;
     Spawner spawner;
 
@@ -28,14 +27,17 @@ public class SpawnBehaviour : MonoBehaviour
         _timeSinceLastSpawn += Time.deltaTime;
         if (_timeSinceLastSpawn < minSpawnInterval) return;
 
-        var size = Random.Range(spawnSize - spawnVariance, spawnSize + spawnVariance);
-        var pos = GetSpawnPosition(size, 10);
+        var pos = GetSpawnPosition(spawnSize, 10);
         if (pos == null) return;
-
+        
         var cell = spawner.Spawn((Vector3)pos);
+
+        //var parent = pool.Actives.OrderBy(go => Vector2.Distance(go.transform.position, (Vector2)pos)).FirstOrDefault();
+
         cell.NeuralNetwork = valhallaData.GetHero();
+        //cell.NeuralNetwork = parent == null ? NeuralNetwork.NewRandom() : parent.NeuralNetwork.Clone() as NeuralNetwork;
         cell.NeuralNetwork.Mutate(Utility.Gauss(worldData.Gauss));
-        cell.Size = size;
+        cell.Size = spawnSize;
         cell.Pool = pool;
         cell.transform.rotation = Quaternion.Euler(0, 0, Random.Range(0f, 360f));
         //cell.Renderer.color = Color.HSVToRGB(Random.value, WorldConfig.FixedSatVal, WorldConfig.FixedSatVal);

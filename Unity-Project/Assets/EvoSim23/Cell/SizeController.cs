@@ -32,6 +32,10 @@ public class SizeController : MonoBehaviour
     [BurstCompile]
     void Update()
     {
-        Size -= WorldConfig.ShrinkSpeed * size * Time.deltaTime;
+        Size -= WorldConfig.ShrinkSpeed
+                * size
+                * Time.deltaTime
+                * math.abs(cc.Rb.angularVelocity)
+                / (0.3f + cc.Rb.velocity.magnitude);
     }
 }

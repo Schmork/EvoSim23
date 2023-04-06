@@ -12,6 +12,7 @@ public class DecaySlider : SliderValuePair
 
         slider.onValueChanged.AddListener(value => typeof(ValhallaData).GetProperty(property)
                                                                        .SetValue(valhallaData, value));
+        UpdateDigits = 5;
         UpdateText();
     }
 }

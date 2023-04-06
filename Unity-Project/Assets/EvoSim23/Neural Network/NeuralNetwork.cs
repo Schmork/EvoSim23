@@ -141,12 +141,9 @@ public class NeuralNetwork : ICloneable
 
     public object Clone()
     {
-        var clone = new NeuralNetwork
-        {
-            Memory = Memory.Clone() as int2[],
-            generation = generation,
-            Layers = new List<Layer>()
-        };
+        var clone = (NeuralNetwork)MemberwiseClone();
+        clone.Memory = Memory.Clone() as int2[];
+        clone.Layers = new List<Layer>();
         for (int i = 0; i < Layers.Count; i++)
             clone.Layers.Add(Layers[i].Clone() as Layer);
         return clone;

@@ -1,6 +1,6 @@
-using UnityEngine;
 using Unity.Burst;
 using Unity.Mathematics;
+using UnityEngine;
 
 [BurstCompile]
 public class NeuralNetworkController : MonoBehaviour
@@ -25,7 +25,7 @@ public class NeuralNetworkController : MonoBehaviour
     }
 
     [BurstCompile]
-    private void Update()
+    private void LateUpdate()
     {
         lastSensorUse += Time.deltaTime;
         lastBrainUse += Time.deltaTime;
@@ -79,12 +79,14 @@ public class NeuralNetworkController : MonoBehaviour
             }];
             */
         }
-        
+
         var force = Time.deltaTime * 10f / math.sqrt(1 + cc.Size);
         var thrust = actions[0].w * force * 20f;
         var torque = actions[0].x * force;
         cc.Rb.AddForce(thrust * transform.up);
         cc.Rb.AddTorque(torque);
+
+        cc.Stats.Diversity += cc.Rb.angularVelocity * math.sqrt(1 + cc.Rb.velocity.magnitude);
 
         //if (actions[1].w > 0)
         //{

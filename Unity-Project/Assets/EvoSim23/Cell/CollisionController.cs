@@ -38,6 +38,9 @@ public class CollisionController : MonoBehaviour
         cc.Size += morsel * WorldConfig.AbsorbEfficiency;
         other.Size -= morsel;
 
-        cc.Stats.MassEaten += morsel;
+        var score = morsel / cc.Size;
+
+        cc.Stats.MassEaten += score;
+        cc.Stats.MassAtSpeed += score * cc.Rb.velocity.magnitude;
     }
 }

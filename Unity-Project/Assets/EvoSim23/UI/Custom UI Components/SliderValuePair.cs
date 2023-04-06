@@ -6,11 +6,11 @@ public class SliderValuePair : MonoBehaviour
 {
     [SerializeField] protected Slider slider;
     [SerializeField] TMP_Text text;
-    [SerializeField] int digits;
+    public int UpdateDigits = 2;
 
     public float Value => Map(slider.value);
 
     void Awake() => slider.onValueChanged.AddListener(_ => UpdateText());
-    protected void UpdateText() => text.text = Value.ToString($"F{digits}");
+    protected void UpdateText() => text.text = Value.ToString($"F{UpdateDigits}");
     virtual protected float Map(float value) => value;
 }

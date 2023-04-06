@@ -17,7 +17,10 @@ public class ValhallaData : ScriptableObject
     {
         DistanceTravelled,
         TimeSurvived,
-        MassEaten
+        MassEaten,
+        MassPerTime,
+        MassAtSpeed,
+        Diversity,
     }
 
     [SerializeField] float _distanceTravelled;
@@ -56,6 +59,36 @@ public class ValhallaData : ScriptableObject
         get => _decaySpeed; set
         {
             _decaySpeed = value;
+            UpdateSum();
+        }
+    }
+
+    [SerializeField] float _massPerTime;
+    public float MassPerTime
+    {
+        get => _massPerTime; set
+        {
+            _massPerTime = value;
+            UpdateSum();
+        }
+    }
+
+    [SerializeField] float _massAtSpeed;
+    public float MassAtSpeed
+    {
+        get => _massAtSpeed; set
+        {
+            _massAtSpeed = value;
+            UpdateSum();
+        }
+    }
+
+    [SerializeField] float _diversity;
+    public float Diversity
+    {
+        get => _diversity; set
+        {
+            _diversity = value;
             UpdateSum();
         }
     }
@@ -108,14 +141,15 @@ public class ValhallaData : ScriptableObject
         ScoreChanged?.Invoke(metric, Heroes[(int)metric].Score);
     }
 
-    public void AddHero(Metric metric, float score, NeuralNetwork network)
+    public bool AddHero(Metric metric, float score, NeuralNetwork network)
     {
         var i = (int)metric;
-        if (score < Heroes[i].Score) return;
+        if (score < Heroes[i].Score) return false;
 
         Heroes[i].Score = score;
         Heroes[i].Network = network;
         ScoreChanged?.Invoke(metric, score);
+        return true;
     }
 
     public NeuralNetwork GetHero()

@@ -123,23 +123,6 @@ NavMeshSettings:
     debug:
       m_Flags: 0
   m_NavMeshData: {fileID: 0}
---- !u!114 &1037957968066150608
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1037957968066150612}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 9f15375ad490eab42b6f32d8b7b05da3, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  deathBelowSize: 0.35
-  shrinkSpeed: 0.001
-  spawnMargin: 0.2
-  absorbSpeed: 1.5
-  absorbEfficiency: 0.65
 --- !u!114 &1037957968066150609
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -174,7 +157,6 @@ GameObject:
   m_Component:
   - component: {fileID: 1037957968066150613}
   - component: {fileID: 1037957968066150614}
-  - component: {fileID: 1037957968066150608}
   - component: {fileID: 1037957968066150609}
   - component: {fileID: 1037957968066150610}
   m_Layer: 0
@@ -213,9 +195,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   worldData: {fileID: 11400000, guid: 2d37c480c4bf015458b1572c9cd843e8, type: 2}
   valhallaData: {fileID: 11400000, guid: b9475a5fd9bd088479909baee21ae389, type: 2}
-  maxToSpawn: 200
+  maxToSpawn: 250
   minSpawnInterval: 0.15
   pool: {fileID: 1037957968066150609}
   _prefab: {fileID: 4899608772384843270, guid: abacf299e7dfaec4697564378c06fc29, type: 3}
-  spawnSize: 3
-  spawnVariance: 0.4
+  spawnSize: 5
