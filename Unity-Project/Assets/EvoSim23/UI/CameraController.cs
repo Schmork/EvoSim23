@@ -8,7 +8,7 @@ public class CameraController : MonoBehaviour
     [SerializeField] float panSpeed = 0.1f;
     [SerializeField] float zoomSpeed = 0.7f;
     [SerializeField] float minZoom = 5;
-    [SerializeField] float maxZoom = 200;
+    [SerializeField] float maxZoom = 1000;
 
     Vector3 panStart;
     Vector3 lastPanPosition;

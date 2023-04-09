@@ -74,25 +74,54 @@ public class StatsController : MonoBehaviour
         }
     }
 
+    [SerializeField] float timeHungry;
+    public float TimeHungry
+    {
+        get => timeHungry;
+        set
+        {
+            timeHungry = value;
+        }
+    }
+
+    [SerializeField] float timeNotHungry;
+    public float TimeNotHungry
+    {
+        get => timeNotHungry;
+        set
+        {
+            timeNotHungry = value;
+        }
+    }
+
     [BurstCompile]
     void LateUpdate()
     {
         TimeSurvived += Time.deltaTime;
         DistanceTravelled += cc.Rb.velocity.magnitude * Time.deltaTime;
+        Diversity += cc.Rb.angularVelocity * Time.deltaTime;
     }
 
     void OnDisable()
     {
-        distanceTravelled = 0;
-        massEaten = 0;
-        timeSurvived = 0;
+        var rating = math.sqrt(1 + math.sqrt(1 + TimeSurvived) * math.sqrt(1 + MassEaten))
+                     / (0.001f + Mathf.Abs(Diversity));
+        cc.Valhalla.AddHero(ValhallaData.Metric.Diversity, rating, cc.NeuralNetwork);
         SaveSlowStats();
+        distanceTravelled = 0;
+        timeSurvived = 0;
+        massEaten = 0;
+        massPerTime = 0;
+        massAtSpeed = 0;
+        diversity = 0;
+        timeHungry = 0;
+        timeNotHungry = 0;
     }
 
     void SaveSlowStats()
     {
-        var rating = 100f * MassPerTime / (0.001f + Mathf.Abs(diversity));
-        cc.Valhalla.AddHero(ValhallaData.Metric.Diversity, rating, cc.NeuralNetwork);
         cc.Valhalla.AddHero(ValhallaData.Metric.MassPerTime, MassPerTime, cc.NeuralNetwork);
+        var hungryScore = math.sqrt(1 + DistanceTravelled) * TimeNotHungry / TimeSurvived;
+        cc.Valhalla.AddHero(ValhallaData.Metric.TimeNotHungry, hungryScore, cc.NeuralNetwork);
     }
 }

@@ -10,7 +10,6 @@ public class WorldData : ScriptableObject
         Speed,
         Gauss,
         Fence,
-        Area,
     }
 
     [SerializeField] private bool toggleValhalla;
@@ -27,9 +26,6 @@ public class WorldData : ScriptableObject
 
     [SerializeField] private Vector2 cameraPos;
     public Vector2 CameraPos { get => cameraPos; set => cameraPos = value; }
-
-    [SerializeField] private Vector3 area;
-    public Vector3 Area { get => area; set => area = value; }
 
     [SerializeField] float speed;
     public float Speed

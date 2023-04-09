@@ -5,6 +5,27 @@ using UnityEngine;
 public class CollisionController : MonoBehaviour
 {
     [SerializeField] CellController cc;
+    float stomach;
+
+    void OnEnable()
+    {
+        stomach = 0;        
+    }
+
+    [BurstCompile]
+    void Update()
+    {
+        stomach -= cc.Size * 0.001f;
+        if (stomach < 0)
+        {
+            cc.Stats.TimeHungry += Time.deltaTime;
+            cc.Size += stomach * 0.06f * Time.deltaTime;
+        }
+        else
+        {
+            cc.Stats.TimeNotHungry += Time.deltaTime;
+        }
+    }
 
     [BurstCompile]
     void OnTriggerStay2D(Collider2D collider)
@@ -42,5 +63,6 @@ public class CollisionController : MonoBehaviour
 
         cc.Stats.MassEaten += score;
         cc.Stats.MassAtSpeed += score * cc.Rb.velocity.magnitude;
+        stomach += morsel;
     }
 }

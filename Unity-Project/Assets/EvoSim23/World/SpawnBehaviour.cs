@@ -10,14 +10,30 @@ public class SpawnBehaviour : MonoBehaviour
     [SerializeField] float minSpawnInterval = 0.5f;
     [SerializeField] CellPool pool;
     [SerializeField] GameObject _prefab;
+    [SerializeField] Transform container;
     [SerializeField] float spawnSize;
     float _timeSinceLastSpawn;
     Spawner spawner;
+    Bounds[] boundsArray;
+    float minX, maxX;
 
-    private void Awake()
+    void Awake()
     {
         pool.SetPrefab(_prefab);
-        spawner = new Spawner(pool, pool.transform);
+        spawner = new Spawner(pool, container);
+        
+        minX = float.MaxValue; maxX = -float.MaxValue;
+        var colliders = GetComponentsInChildren<Collider2D>();
+        boundsArray = new Bounds[colliders.Length];
+        for (int i = 0; i < colliders.Length; i++)
+        {
+            boundsArray[i] = colliders[i].bounds;
+            var min = boundsArray[i].center.x - boundsArray[i].extents.x;
+            if (min < minX) minX = min;
+            var max = boundsArray[i].center.x + boundsArray[i].extents.x;
+            if (max > maxX) maxX = max;
+            colliders[i].enabled = false;
+        }
     }
 
     void Update()
@@ -41,7 +57,7 @@ public class SpawnBehaviour : MonoBehaviour
         cell.Pool = pool;
         cell.transform.rotation = Quaternion.Euler(0, 0, Random.Range(0f, 360f));
         //cell.Renderer.color = Color.HSVToRGB(Random.value, WorldConfig.FixedSatVal, WorldConfig.FixedSatVal);
-        var hue = (pos.Value.x + worldData.Area.x * worldData.Area.z * 0.5f) / (worldData.Area.x * worldData.Area.z);
+        var hue = (pos.Value.x + (maxX - minX) * 0.5f) / (maxX - minX);
         cell.Renderer.color = Color.HSVToRGB(hue, WorldConfig.FixedSatVal, WorldConfig.FixedSatVal);
         _timeSinceLastSpawn = 0f;
     }
@@ -49,13 +65,10 @@ public class SpawnBehaviour : MonoBehaviour
     Vector3? GetSpawnPosition(float size, int attempts)
     {
         if (attempts <= 0) return null;
-        var area = worldData.Area;
-        var width = area.x * area.z * 0.5f;
-        var height = area.y * area.z * 0.5f;
-        var pos = new Vector3(Random.Range(-width, width),
-                              Random.Range(-height, height),
-                              transform.position.z);
-        
+
+        var bounds = boundsArray[(int)(Random.value * boundsArray.Length)];
+        var pos = bounds.center + (Vector3)Random.insideUnitCircle * bounds.extents.x;
+
         var actives = pool.Actives;
         return actives.Any(cell => Vector2.Distance(pos, cell.transform.position) * WorldConfig.SpawnMargin
                                    < SizeController.ToScale(size) + SizeController.ToScale(cell.Size))

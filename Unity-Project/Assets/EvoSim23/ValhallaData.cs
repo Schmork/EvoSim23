@@ -21,6 +21,7 @@ public class ValhallaData : ScriptableObject
         MassPerTime,
         MassAtSpeed,
         Diversity,
+        TimeNotHungry,
     }
 
     [SerializeField] float _distanceTravelled;
@@ -89,6 +90,16 @@ public class ValhallaData : ScriptableObject
         get => _diversity; set
         {
             _diversity = value;
+            UpdateSum();
+        }
+    }
+
+    [SerializeField] float _timeNotHungry;
+    public float TimeNotHungry
+    {
+        get => _timeNotHungry; set
+        {
+            _timeNotHungry = value;
             UpdateSum();
         }
     }

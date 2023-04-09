@@ -7,7 +7,7 @@ public class SensorController : MonoBehaviour
     [SerializeField] CellController cc;
     [SerializeField] LayerMask layer;
 
-    const float sensorRadius = 10f;
+    const float sensorRadius = 15f;
     const float comparisonSafety = 0.98f; // reduce own size in comparisons (safety margin)
     readonly public static int numSensorValues = 4;
 
@@ -26,7 +26,9 @@ public class SensorController : MonoBehaviour
     [BurstCompile]
     public float4 Scan()
     {
-        var hits = Physics2D.OverlapCircleAll(transform.position, sensorRadius, layer);
+        var hits = Physics2D.OverlapCircleAll(transform.position, 
+                                              SizeController.ToScale(cc.Size) * sensorRadius, 
+                                              layer);
 
         TrackedCell prey = new();
         TrackedCell threat = new(float.MaxValue);
@@ -39,27 +41,27 @@ public class SensorController : MonoBehaviour
             if (hit.gameObject == gameObject) continue;
 
             var otherSize = hit.transform.localScale.magnitude;
-            var distance = Vector2.Distance(transform.position, hit.transform.position);
+            var distance = Vector2.Distance(transform.position, FuturePosition(hit));
 
             if (mySize > otherSize)
             {
-                prey = ProcessSmaller(prey, hit, distance, otherSize);
+                prey = CheckSmaller(prey, hit, distance, otherSize);
             }
             else
             {
-                threat = ProcessBigger(threat, hit, distance);
+                threat = CheckBigger(threat, hit, distance);
             }
         }
 
         float4 output;
         output.w = prey.col == null ? 0 : 1;
         output.x = Direction(prey.col) ?? 0;
-        output.y = threat.col == null ? 0 : 1;
+        output.y = threat.col == null ? 0 : -1;
         output.z = Direction(threat.col) ?? 0;
         return output;
     }
 
-    TrackedCell ProcessBigger(TrackedCell threat, Collider2D col, float distance)
+    TrackedCell CheckBigger(TrackedCell threat, Collider2D col, float distance)
     {
         if (distance < threat.value)
         {
@@ -69,9 +71,9 @@ public class SensorController : MonoBehaviour
         return threat;
     }
 
-    TrackedCell ProcessSmaller(TrackedCell prey, Collider2D col, float distance, float size)
+    TrackedCell CheckSmaller(TrackedCell prey, Collider2D col, float distance, float size)
     {
-        var value = size / distance;
+        var value = size * size / (distance * distance);
         if (value > prey.value)
         {
             prey.col = col;
@@ -83,6 +85,14 @@ public class SensorController : MonoBehaviour
     float? Direction(Collider2D other)
     {
         if (other == null) return null;
-        return Vector2.SignedAngle(transform.up, other.transform.position - transform.position) / 180f;
+        return Vector2.SignedAngle(transform.up, FuturePosition(other) - (Vector2)transform.position) / 180f;
+    }
+
+    Vector2 FuturePosition(Collider2D other)
+    {
+        return (Vector2)other.transform.position
+               + other.transform.up
+               * other.attachedRigidbody.velocity
+               * Time.deltaTime;
     }
 }

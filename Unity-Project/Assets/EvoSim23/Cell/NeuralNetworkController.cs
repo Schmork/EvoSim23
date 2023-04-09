@@ -15,13 +15,16 @@ public class NeuralNetworkController : MonoBehaviour
     float lastSensorUse;
     float lastBrainUse;
 
-    const float sensorFee = 0.001f;
-    const float brainFee = 0.002f;
+    const float sensorFee = 0;
+    const float brainFee = 0;
 
     void OnEnable()
     {
         inputs = new float4[NeuralNetwork.numInputs / 4];
         actions = new float4[1];
+        sensorData = new float4(0);
+        lastSensorUse = 0;
+        lastBrainUse = 0;
     }
 
     [BurstCompile]
@@ -31,9 +34,12 @@ public class NeuralNetworkController : MonoBehaviour
         lastBrainUse += Time.deltaTime;
 
         int n = 0;
-        var layerIndex = neuralNetwork.Memory[n].x;
-        var neurnIndex = neuralNetwork.Memory[n].y;
-        inputs[n++] = neuralNetwork.Layers[layerIndex].Results[neurnIndex];
+        for (; n < neuralNetwork.Memory.Length; n++)
+        {
+            var layerIndex = neuralNetwork.Memory[n].x;
+            var neurnIndex = neuralNetwork.Memory[n].y;
+            inputs[n] = neuralNetwork.Layers[layerIndex].Results[neurnIndex];
+        }
 
         //for (i = 0; i < neuralNetwork.Memory.Length; i++)
         //for (; n < neuralNetwork.Memory.Length; n++)
@@ -48,7 +54,7 @@ public class NeuralNetworkController : MonoBehaviour
         inputs[n++] = new float4(
             cc.Size / 100f,
             cc.Rb.velocity.magnitude / 10f,
-            Vector2.Dot(cc.Rb.velocity, transform.up),
+            Vector2.SignedAngle(cc.Rb.velocity, transform.up) / 180f,
             System.MathF.Tanh(cc.Rb.angularVelocity / 900f)
         );
 
@@ -85,8 +91,6 @@ public class NeuralNetworkController : MonoBehaviour
         var torque = actions[0].x * force;
         cc.Rb.AddForce(thrust * transform.up);
         cc.Rb.AddTorque(torque);
-
-        cc.Stats.Diversity += cc.Rb.angularVelocity * math.sqrt(1 + cc.Rb.velocity.magnitude);
 
         //if (actions[1].w > 0)
         //{
