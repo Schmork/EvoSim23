@@ -22,6 +22,7 @@ public class ValhallaData : ScriptableObject
         MassAtSpeed,
         Diversity,
         TimeNotHungry,
+        NewRandom,
     }
 
     [SerializeField] float _distanceTravelled;
@@ -104,6 +105,16 @@ public class ValhallaData : ScriptableObject
         }
     }
 
+    [SerializeField] float _newRandom;
+    public float NewRandom
+    {
+        get => _newRandom; set
+        {
+            _newRandom = value;
+            UpdateSum();
+        }
+    }
+
     public HeroData[] Heroes { get; private set; }
 
     public event Action<Metric, float> ScoreChanged;
@@ -111,7 +122,26 @@ public class ValhallaData : ScriptableObject
     float[] chances;
     float sum = 0;
 
-    void UpdateSum() => sum = chances.Sum();
+    void UpdateSum()
+    {
+        var properties = typeof(ValhallaData).GetProperties();
+        foreach (var metric in Enum.GetValues(typeof(Metric)))
+        {
+            var propertyName = metric.ToString();
+            var property = properties.FirstOrDefault(p => p.Name == propertyName);
+            if (property != null && property.PropertyType == typeof(float))
+            {
+                chances[(int)metric] = (float)property.GetValue(this);
+            }
+            else
+            {
+                Debug.LogWarning($"Metric {propertyName} not found or is not a float property.");
+            }
+        }
+
+        sum = chances.Sum();
+    }
+
 
     void OnEnable()
     {
@@ -183,7 +213,7 @@ public class ValhallaData : ScriptableObject
             if (randomValue < tempSum) return i;
         }
 
-        Debug.Log("Error when picking metric");
+        Debug.LogWarning("Error when picking metric");
         return (int)(UnityEngine.Random.value * Heroes.Length);
     }
 

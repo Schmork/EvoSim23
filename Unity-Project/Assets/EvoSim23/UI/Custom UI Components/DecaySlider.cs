@@ -1,4 +1,5 @@
-﻿using UnityEngine;
+﻿using TMPro;
+using UnityEngine;
 
 public class DecaySlider : SliderValuePair
 {
@@ -7,12 +8,16 @@ public class DecaySlider : SliderValuePair
 
     void Start()
     {
+
+        slider.onValueChanged.AddListener(value =>
+        {
+            typeof(ValhallaData).GetProperty(property)
+                                .SetValue(valhallaData, value);
+            
+            text.text = value.ToString($"F{RecordDigits}");
+        }); 
+        
         slider.value = (float)typeof(ValhallaData).GetProperty(property)
                                                   .GetValue(valhallaData);
-
-        slider.onValueChanged.AddListener(value => typeof(ValhallaData).GetProperty(property)
-                                                                       .SetValue(valhallaData, value));
-        UpdateDigits = 5;
-        UpdateText();
     }
 }

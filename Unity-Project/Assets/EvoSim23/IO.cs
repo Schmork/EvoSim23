@@ -79,6 +79,7 @@ public class IO : MonoBehaviour
 
         for (int i = 0; i < data.Heroes.Length; i++)
         {
+            if ((Metric)i == Metric.NewRandom) continue;
             SaveHero((Metric)i, data.Heroes[i]);
         }
     }

@@ -99,13 +99,13 @@ public class StatsController : MonoBehaviour
     {
         TimeSurvived += Time.deltaTime;
         DistanceTravelled += cc.Rb.velocity.magnitude * Time.deltaTime;
-        Diversity += cc.Rb.angularVelocity * Time.deltaTime;
+        Diversity += Vector2.SignedAngle(Vector2.up, cc.Rb.velocity) * Time.deltaTime;
     }
 
     void OnDisable()
     {
-        var rating = math.sqrt(1 + math.sqrt(1 + TimeSurvived) * math.sqrt(1 + MassEaten))
-                     / (0.001f + Mathf.Abs(Diversity));
+        var rating = DistanceTravelled < 100 ? 0 : math.sqrt(1 + MassAtSpeed)
+                     / (0.00001f + Diversity * Diversity);
         cc.Valhalla.AddHero(ValhallaData.Metric.Diversity, rating, cc.NeuralNetwork);
         SaveSlowStats();
         distanceTravelled = 0;

@@ -584,7 +584,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   slider: {fileID: 1334752978652039567}
   text: {fileID: 981058274949727464}
-  digits: 2
+  ChanceDigits: 2
+  RecordDigits: 2
   valhallaData: {fileID: 11400000, guid: b9475a5fd9bd088479909baee21ae389, type: 2}
   metric: 0
   label: {fileID: 981058274949727464}
