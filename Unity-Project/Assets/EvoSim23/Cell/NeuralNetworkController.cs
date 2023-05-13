@@ -41,16 +41,6 @@ public class NeuralNetworkController : MonoBehaviour
             inputs[n] = neuralNetwork.Layers[layerIndex].Results[neurnIndex];
         }
 
-        //for (i = 0; i < neuralNetwork.Memory.Length; i++)
-        //for (; n < neuralNetwork.Memory.Length; n++)
-        //{
-        //    var layerIndex = neuralNetwork.Memory[n].x;
-        //    var memryIndex = neuralNetwork.Memory[n].y;
-        //    inputs[n] = neuralNetwork.Layers[layerIndex].Memory[memryIndex];
-        //    //inputs[n] = neuralNetwork.Layers[layerIndex].Memory[memryIndex];
-        //    //if (i / 4 > 0 && i % 4 == 0) n++;
-        //}
-
         inputs[n++] = new float4(
             cc.Size / 100f,
             cc.Rb.velocity.magnitude / 10f,

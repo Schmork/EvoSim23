@@ -38,7 +38,7 @@ public class SpawnBehaviour : MonoBehaviour
 
     void Update()
     {
-        if (pool.NumActives >= maxToSpawn) return;
+        if (pool.NumActives >= worldData.MaxCells) return;
 
         _timeSinceLastSpawn += Time.deltaTime;
         if (_timeSinceLastSpawn < minSpawnInterval) return;
@@ -49,7 +49,20 @@ public class SpawnBehaviour : MonoBehaviour
         var cell = spawner.Spawn((Vector3)pos);
 
         //var parent = pool.Actives.OrderBy(go => Vector2.Distance(go.transform.position, (Vector2)pos)).FirstOrDefault();
+        /*
+        var max = pool.Actives.Length > 25 ? 25 : pool.Actives.Length;
+        var others = pool.Actives.OrderByDescending(go => go.Size).Take(max).ToArray();
 
+        var rnd = Utility.Random.NextInt(max);
+        NeuralNetwork parent;
+        if (rnd == 0) 
+            parent = NeuralNetwork.NewRandom();
+        else
+        {
+            parent = others[rnd - 1].NeuralNetwork;
+        }
+        */
+        //cell.NeuralNetwork = parent.Clone() as NeuralNetwork;
         cell.NeuralNetwork = valhallaData.GetHero();
         //cell.NeuralNetwork = parent == null ? NeuralNetwork.NewRandom() : parent.NeuralNetwork.Clone() as NeuralNetwork;
         cell.NeuralNetwork.Mutate(Utility.Gauss(worldData.Gauss));

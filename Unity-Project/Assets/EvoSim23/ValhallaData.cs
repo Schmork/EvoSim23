@@ -129,7 +129,7 @@ public class ValhallaData : ScriptableObject
         {
             var propertyName = metric.ToString();
             var property = properties.FirstOrDefault(p => p.Name == propertyName);
-            if (property != null && property.PropertyType == typeof(float))
+            if (property?.PropertyType == typeof(float))
             {
                 chances[(int)metric] = (float)property.GetValue(this);
             }
@@ -188,7 +188,7 @@ public class ValhallaData : ScriptableObject
         if (score < Heroes[i].Score) return false;
 
         Heroes[i].Score = score;
-        Heroes[i].Network = network;
+        Heroes[i].Network = network.Clone() as NeuralNetwork;
         ScoreChanged?.Invoke(metric, score);
         return true;
     }

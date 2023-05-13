@@ -10,6 +10,7 @@ public class WorldData : ScriptableObject
         Speed,
         Gauss,
         Fence,
+        MaxCells,
     }
 
     [SerializeField] private bool toggleValhalla;
@@ -20,6 +21,9 @@ public class WorldData : ScriptableObject
 
     [SerializeField] private float fence;
     public float Fence { get => fence; set => fence = value; }
+
+    [SerializeField] private float maxCells;
+    public float MaxCells { get => maxCells; set => maxCells = value; }
 
     [SerializeField] private float cameraZoom;
     public float CameraZoom { get => cameraZoom; set => cameraZoom = value; }

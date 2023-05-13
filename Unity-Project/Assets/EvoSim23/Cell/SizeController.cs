@@ -35,7 +35,7 @@ public class SizeController : MonoBehaviour
         Size -= WorldConfig.ShrinkSpeed
                 * size
                 * Time.deltaTime;
-
+        /*
         Size -= WorldConfig.ShrinkSpeed 
                 * math.pow(1 + math.abs(cc.Stats.Diversity), 2f) 
                 * Time.deltaTime;
@@ -44,5 +44,6 @@ public class SizeController : MonoBehaviour
         Size -= cc.Stats.TimeSurvived
                 * Time.deltaTime
                 / (1111f + cc.Stats.DistanceTravelled);
+        */
     }
 }
