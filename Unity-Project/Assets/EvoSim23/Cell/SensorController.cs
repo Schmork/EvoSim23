@@ -7,7 +7,7 @@ public class SensorController : MonoBehaviour
     [SerializeField] CellController cc;
     [SerializeField] LayerMask layer;
 
-    const float sensorRadius = 15f;
+    const float sensorRadius = 25f;
     const float comparisonSafety = 0.98f; // reduce own size in comparisons (safety margin)
     readonly public static int numSensorValues = 4;
 

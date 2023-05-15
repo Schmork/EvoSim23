@@ -1905,7 +1905,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   deathBelowSize: 0.5
-  shrinkSpeed: 0.00000001
+  shrinkSpeed: 0.0000001
   spawnMargin: 0.3
   absorbSpeed: 1.6
   absorbEfficiency: 0.65

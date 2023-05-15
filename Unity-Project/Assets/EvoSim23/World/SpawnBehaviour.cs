@@ -66,6 +66,7 @@ public class SpawnBehaviour : MonoBehaviour
         cell.NeuralNetwork = valhallaData.GetHero();
         //cell.NeuralNetwork = parent == null ? NeuralNetwork.NewRandom() : parent.NeuralNetwork.Clone() as NeuralNetwork;
         cell.NeuralNetwork.Mutate(Utility.Gauss(worldData.Gauss));
+        cell.NeuralNetwork.Mutate(Utility.Gauss(worldData.Gauss));
         cell.Size = spawnSize;
         cell.Pool = pool;
         cell.transform.rotation = Quaternion.Euler(0, 0, Random.Range(0f, 360f));
